@@ -19,5 +19,5 @@ Was vor dem Livegang entschieden oder geliefert sein muss. Erledigtes wandert na
 
 8. **Adresse und Mail** in `inhalt/studio.json`. Ohne sie bricht der Bau für die richtige Adresse ab. Die Mail liegt mit Vorteil auf der eigenen Domain.
 9. **Impressum und Datenschutz** gegenlesen. Zu klären: Tritt Nicolas Brivio als Person auf oder eine Firma?
-10. **Domain:** `www.nicolasbrivio.ch` auf GitHub Pages aufschalten, danach die drei Variablen umstellen (siehe README).
+10. **Livegang:** Projekte und Rechtsseiten einschalten (`oeffentlich`, `rechtOeffentlich`), dann die Variable `SITE_STUFE` auf `live` stellen. In GitHub Pages «Enforce HTTPS» einschalten, sobald das Feld wählbar ist. Für die Hauptdomain die drei weiteren A-Einträge von GitHub Pages ergänzen (185.199.109.153, 185.199.110.153, 185.199.111.153).
 11. **Suchkonsole:** nach dem Livegang die Domain bestätigen und die Sitemap einreichen.
