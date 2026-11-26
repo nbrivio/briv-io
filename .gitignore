@@ -14,3 +14,6 @@ berichte/
 # Das Logo liegt für die Seite unter src/assets/marke/. Die Vorlage in docs/ bleibt lokal.
 /docs/*.png
 /BRAND.md
+
+# Ablage für Vorschaubilder aus der Arbeit, bleibt lokal.
+/*outputs/

@@ -31,6 +31,8 @@ const fertig = z.object({
 const schema = z.object({
   // Solange hier false steht, sind die Texte Entwürfe: auf der Testadresse geduldet, auf der richtigen Adresse bricht der Bau ab.
   freigegeben: z.boolean(),
+  // Mit false zeigt die Seite nur das Titelblatt: keine Projekte auf der Startseite, keine Projektseiten.
+  oeffentlich: z.boolean(),
   projekte: z
     .array(z.discriminatedUnion('bereit', [angekuendigt, fertig]))
     .min(1)
@@ -39,18 +41,19 @@ const schema = z.object({
 });
 
 const daten = schema.parse(roh);
-if (istLive && !daten.freigegeben) {
+if (istLive && daten.oeffentlich && !daten.freigegeben) {
   throw new Error('Die Texte der Kapitel sind noch nicht freigegeben (inhalt/projekte.json).');
 }
 
 const bilder = import.meta.glob('../assets/bilder/kapitel/*.{webp,avif,jpg,png}', { eager: true, import: 'default' });
 const zweistellig = (zahl) => String(zahl).padStart(2, '0');
 
-export const projekte = daten.projekte.map((projekt, i) => {
+const alle = daten.projekte.map((projekt, i) => {
   const datei = projekt.bild ? Object.entries(bilder).find(([pfad]) => pfad.split('/').pop().replace(/\.\w+$/, '') === projekt.bild) : undefined;
   if (projekt.bild && !datei) throw new Error(`Bild fehlt unter src/assets/bilder/kapitel/: ${projekt.bild}`);
   return { ...projekt, nummer: zweistellig(i + 1), bildDatei: datei?.[1] };
 });
 
+export const projekte = daten.oeffentlich ? alle : [];
 export const anzahl = zweistellig(projekte.length);
 export const bereite = projekte.filter((p) => p.bereit);

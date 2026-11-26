@@ -13,7 +13,7 @@ const s = texte.start;
 const anfang = new URL(pfad('/'), Astro.site).href;
 const [claimAnfang, claimSchluss] = [studio.claim.split(' ').slice(0, -1).join(' '), studio.claim.split(' ').at(-1)];
 
-const daten = [
+const daten = projekte.length === 0 ? [] : [
   {
     '@type': 'ItemList',
     '@id': `${anfang}#projekte`,
@@ -32,7 +32,7 @@ const daten = [
         <Image class="zeichen" src={logo} alt={`${studio.name}: die Wortmarke auf einem goldenen Band, getragen von zwei Schwalben`} widths={[400, 640, 880, 1216]} sizes="(max-width: 700px) 86vw, 38rem" quality={70} loading="eager" fetchpriority="high" />
         <h1 id="auftakt-titel"><span class="satz leise" lang="en">{claimAnfang} <em>{claimSchluss}</em></span></h1>
       </div>
-      <p class="zaehler" aria-hidden="true">00 / {anzahl}</p>
+      {projekte.length > 0 && <p class="zaehler" aria-hidden="true">00 / {anzahl}</p>}
     </section>
 
     {
@@ -65,10 +65,14 @@ const daten = [
     }
   </div>
 
-  <nav class="faden" aria-label="Projekte">
-    <ol>
-      <li><a href="#auftakt"><span class="nr" aria-hidden="true">00</span><span class="verborgen">Auftakt</span></a></li>
-      {projekte.map((p) => <li><a href={`#${p.id}`}><span class="nr" aria-hidden="true">{p.nummer}</span><span class="verborgen">{p.nummer}: {p.name}</span></a></li>)}
-    </ol>
-  </nav>
+  {
+    projekte.length > 0 && (
+      <nav class="faden" aria-label="Projekte">
+        <ol>
+          <li><a href="#auftakt"><span class="nr" aria-hidden="true">00</span><span class="verborgen">Auftakt</span></a></li>
+          {projekte.map((p) => <li><a href={`#${p.id}`}><span class="nr" aria-hidden="true">{p.nummer}</span><span class="verborgen">{p.nummer}: {p.name}</span></a></li>)}
+        </ol>
+      </nav>
+    )
+  }
 </Seite>

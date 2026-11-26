@@ -112,10 +112,13 @@ for (const [name, width, height] of [breiten[1], breiten[3]]) {
   await fenster.goto(`${adresse}/`, { waitUntil: 'networkidle' });
   const zuHoch = await fenster.evaluate(() => [...document.querySelectorAll('.kapitel')].filter((k) => k.scrollHeight > innerHeight + 1).map((k) => k.id));
   for (const id of zuHoch) b.melde(ort, `Kapitel ist höher als der Schirm: ${id}`);
-  await fenster.keyboard.press('ArrowDown');
-  await fenster.waitForTimeout(400);
-  const lage = await fenster.evaluate(() => Math.round(document.querySelectorAll('.kapitel')[1].getBoundingClientRect().top));
-  if (Math.abs(lage) > 2) b.melde(ort, `Pfeiltaste führt nicht zum zweiten Kapitel (Abstand ${lage} Pixel)`);
+  // Solange nur das Titelblatt steht, gibt es kein zweites Kapitel.
+  if ((await fenster.locator('.kapitel').count()) > 1) {
+    await fenster.keyboard.press('ArrowDown');
+    await fenster.waitForTimeout(400);
+    const lage = await fenster.evaluate(() => Math.round(document.querySelectorAll('.kapitel')[1].getBoundingClientRect().top));
+    if (Math.abs(lage) > 2) b.melde(ort, `Pfeiltaste führt nicht zum zweiten Kapitel (Abstand ${lage} Pixel)`);
+  }
   await kontext.close();
 }
 
