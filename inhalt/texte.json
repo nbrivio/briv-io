@@ -1,0 +1,94 @@
+{
+  "freigegeben": false,
+  "start": {
+    "seitentitel": "briv—io: Product Studio aus der Schweiz",
+    "beschreibung": "briv—io ist das unabhängige Product Studio von Nicolas Brivio. Eine Ausstellung von Ideen, Experimenten und Produkten aus der Schweiz.",
+    "lead": "Eine fortlaufende Erkundung des Möglichen",
+    "hinweis": "Eine Ausstellung in {anzahl} Kapiteln",
+    "vorbereitung": "Dieses Kapitel wird gerade eingerichtet",
+    "studioTitel": "Neugier ist die *Konstante*",
+    "studioText": "Alles andere ist ein Experiment. Am Anfang steht eine Frage: Was wäre, wenn? Die Neugier bleibt, die Projekte verändern sich."
+  },
+  "studio": {
+    "seitentitel": "Studio: wer hinter briv—io steht",
+    "beschreibung": "Hinter briv—io steht Nicolas Brivio. Ein unabhängiges Product Studio aus der Schweiz, offen für Zusammenarbeit, gute Fragen und neue Ideen.",
+    "titel": "Aus Neugier *gebaut*",
+    "lead": "briv—io ist ein unabhängiges Product Studio aus der Schweiz. Dahinter steht Nicolas Brivio.",
+    "teile": [
+      {
+        "titel": "Alles beginnt mit einer Frage",
+        "text": [
+          "Was wäre, wenn? Warum nicht? Was könnte anders sein?",
+          "Neugier macht aus Beobachtungen Ideen, aus Ideen Experimente und aus Experimenten Dinge, die es gibt. Keine feste Branche, keine vorgegebenen Grenzen. Nur die Erkundung dessen, was möglich ist."
+        ]
+      },
+      {
+        "titel": "Die Neugier bleibt, die Projekte verändern sich",
+        "text": [
+          "briv—io ist keine Agentur und kein klassisches Portfolio. Die Projekte zeigen, was entsteht, wenn man seiner Neugier konsequent folgt.",
+          "Ein Projekt kann ein Konzept sein, ein Experiment oder ein Produkt, das läuft. Bei jedem Kapitel steht, was davon es ist."
+        ]
+      }
+    ],
+    "tuerTitel": "Die Tür steht *offen*",
+    "tuerText": "Offen für Zusammenarbeit, gute Fragen und neue Ideen.",
+    "leitsatz": "Stay curious. Build things. Repeat."
+  },
+  "impressum": {
+    "seitentitel": "Impressum und Kontakt",
+    "beschreibung": "Anbieter von briv—io: Nicolas Brivio, Schweiz.",
+    "titel": "Impressum",
+    "teile": [
+      {
+        "titel": "Haftung für Verweise",
+        "text": [
+          "Diese Website verweist auf Seiten Dritter. Für deren Inhalte sind allein die jeweiligen Betreiber verantwortlich."
+        ]
+      },
+      {
+        "titel": "Urheberrecht",
+        "text": [
+          "Texte, Bilder und Gestaltung dieser Website sind urheberrechtlich geschützt. Eine Verwendung braucht die vorgängige Zustimmung."
+        ]
+      }
+    ]
+  },
+  "datenschutz": {
+    "seitentitel": "Datenschutz auf dieser Website",
+    "beschreibung": "Welche Daten beim Besuch von briv—io anfallen: keine Cookies, keine Messung, kein Formular.",
+    "titel": "Datenschutz",
+    "stand": "26. Nov. 26",
+    "teile": [
+      {
+        "titel": "Verantwortlich",
+        "text": [
+          "Verantwortlich für diese Website ist Nicolas Brivio. Die Kontaktangaben stehen im Impressum. Es gilt das Schweizer Datenschutzgesetz (DSG)."
+        ]
+      },
+      {
+        "titel": "Was beim Besuch geschieht",
+        "text": [
+          "Diese Website setzt keine Cookies, misst keine Besuche und enthält kein Formular. Schriften und Bilder kommen von der eigenen Adresse, es werden keine Dienste Dritter eingebunden."
+        ]
+      },
+      {
+        "titel": "Auslieferung",
+        "text": [
+          "Die Seiten werden über GitHub Pages ausgeliefert, einen Dienst der GitHub Inc. in den USA. Dabei verarbeitet GitHub technische Angaben wie die IP-Adresse, um die Seite auszuliefern und den Dienst zu schützen. Damit werden Daten in die USA übermittelt (Art. 16 DSG)."
+        ]
+      },
+      {
+        "titel": "Kontakt per Mail",
+        "text": [
+          "Wer eine Mail schreibt, übermittelt die Angaben darin. Sie werden nur verwendet, um die Anfrage zu beantworten, und danach nicht länger aufbewahrt als nötig."
+        ]
+      },
+      {
+        "titel": "Deine Rechte",
+        "text": [
+          "Du kannst Auskunft über deine Daten verlangen, sie berichtigen oder löschen lassen. Eine Mail an die Adresse im Impressum genügt."
+        ]
+      }
+    ]
+  }
+}

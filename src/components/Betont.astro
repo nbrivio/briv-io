@@ -1,0 +1,8 @@
+---
+// Setzt den Teil zwischen Sternen kursiv: «Ein *betontes* Wort».
+import { betont } from '../inhalt/texte.js';
+
+const { text } = Astro.props;
+---
+
+{betont(text).map(({ stueck, kursiv }) => (kursiv ? <em>{stueck}</em> : stueck))}

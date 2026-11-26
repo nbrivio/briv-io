@@ -1,0 +1,14 @@
+---
+import '../stile/blatt.css';
+import Seite from '../layouts/Seite.astro';
+import { pfad } from '../inhalt/pfad.js';
+---
+
+<Seite intern titel="Seite nicht gefunden" beschreibung="Diese Adresse gibt es nicht.">
+  <header class="tafel schlicht">
+    <p class="etikett">Fehler 404</p>
+    <h1 class="satz">Dieses Kapitel hängt <em>nicht</em> hier</h1>
+    <p class="lead">Vielleicht wurde es umgehängt.</p>
+    <p><a class="weiter" href={pfad('/')}>Zur Ausstellung</a></p>
+  </header>
+</Seite>

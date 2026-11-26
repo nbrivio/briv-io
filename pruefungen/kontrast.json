@@ -1,0 +1,18 @@
+[
+  { "text": "papier", "grund": "tinte", "mindestens": 7, "wofuer": "Text auf der Wand" },
+  { "text": "papier", "grund": "nacht", "mindestens": 7, "wofuer": "Text im Kapitelfeld Nacht" },
+  { "text": "papier", "grund": "rot-tief", "mindestens": 7, "wofuer": "Text im Kapitelfeld Rot" },
+  { "text": "papier", "grund": "burgund", "mindestens": 7, "wofuer": "Text im Kapitelfeld Burgund" },
+  { "text": "papier", "grund": "blau", "mindestens": 7, "wofuer": "Text im Kapitelfeld Blau" },
+  { "text": "papier", "grund": "oliv-tief", "mindestens": 7, "wofuer": "Text im Kapitelfeld Oliv" },
+  { "text": "papier", "grund": "ocker-tief", "mindestens": 7, "wofuer": "Text im Kapitelfeld Ocker" },
+  { "text": "nebel", "grund": "tinte", "mindestens": 7, "wofuer": "Anbieterzeile im Fuss" },
+  { "text": "gold", "grund": "tinte", "mindestens": 4.5, "wofuer": "Faden, Fokusrahmen, Verweis unter dem Zeiger" },
+  { "text": "gold", "grund": "burgund", "mindestens": 3, "wofuer": "Fokusrahmen im Kapitelfeld" },
+  { "text": "gold", "grund": "ocker-tief", "mindestens": 3, "wofuer": "Fokusrahmen im Kapitelfeld" },
+  { "text": "gold", "grund": "oliv-tief", "mindestens": 3, "wofuer": "Fokusrahmen im Kapitelfeld" },
+  { "text": "tinte", "grund": "papier", "mindestens": 7, "wofuer": "Fliesstext auf dem Blatt" },
+  { "text": "rot", "grund": "papier", "mindestens": 4.5, "wofuer": "Verweis und Fokusrahmen auf dem Blatt" },
+  { "text": "schiefer", "grund": "papier", "mindestens": 7, "wofuer": "leise Angaben auf dem Blatt" },
+  { "text": "tinte", "grund": "gold", "mindestens": 7, "wofuer": "markierter Text" }
+]

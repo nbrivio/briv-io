@@ -1,0 +1,49 @@
+/* Marken-Token nach BRAND.md. Tinte ist die Wand, Papier das Blatt, Gold das Band. */
+:root {
+  color-scheme: dark;
+
+  --bi-papier: #f3eddf;
+  --bi-tinte: #191f1b;
+  --bi-gold: #ddb34e;
+  --bi-rot: #a52a2a;
+  --bi-burgund: #57272d;
+  --bi-blau: #223d54;
+  --bi-oliv: #697458;
+
+  /* Abgeleitet: tiefe Töne als Wandfarbe der Kapitel, Nebel für leise Angaben auf dunklem Grund. */
+  --bi-nacht: #111512;
+  --bi-rot-tief: #6e1d1d;
+  --bi-oliv-tief: #3a4230;
+  --bi-ocker-tief: #57430f;
+  --bi-nebel: #c4c0b3;
+  --bi-schiefer: #4a514b; /* leise Angaben auf Papier */
+
+  --bi-linie: rgb(243 237 223 / 0.16);
+  --bi-linie-blatt: rgb(25 31 27 / 0.18);
+
+  --bi-font-titel: 'Bricolage Grotesque', 'Arial Narrow', Arial, sans-serif;
+  --bi-font-text: 'Instrument Sans', system-ui, -apple-system, 'Segoe UI', Arial, sans-serif;
+  --bi-font-kursiv: Georgia, 'Times New Roman', serif;
+
+  /* Eine Skala. Fliesstext bleibt bei 1rem bis 1.125rem. */
+  --fs-satz: clamp(2.25rem, 0.9rem + 5.6vw, 6.25rem);
+  --fs-h2: clamp(1.9rem, 1.2rem + 2.6vw, 3.5rem);
+  --fs-h3: clamp(1.3rem, 1.1rem + 0.8vw, 1.75rem);
+  --fs-lead: clamp(1.125rem, 1rem + 0.5vw, 1.3125rem);
+  --fs-text: clamp(1rem, 0.96rem + 0.2vw, 1.125rem);
+  --fs-marke: 0.8125rem;
+
+  /* Abstände aus einem Grundwert von 8 Pixeln. */
+  --a1: 0.5rem;
+  --a2: 1rem;
+  --a3: 1.5rem;
+  --a4: 2.5rem;
+  --a5: 4rem;
+  --a6: 6.5rem;
+
+  /* Ein Rand für alles: Marke, Titel und Schild teilen dieselbe Kante. */
+  --rand: clamp(20px, 5vw, 72px);
+  --kopf-h: 4.75rem;
+
+  --kurve: cubic-bezier(0.2, 0.7, 0.2, 1);
+}

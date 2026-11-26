@@ -1,0 +1,72 @@
+---
+import '../../stile/blatt.css';
+import { Image } from 'astro:assets';
+import Seite from '../../layouts/Seite.astro';
+import { bereite, anzahl } from '../../inhalt/projekte.js';
+import Betont from '../../components/Betont.astro';
+import { pfad } from '../../inhalt/pfad.js';
+
+export function getStaticPaths() {
+  return bereite.map((projekt, i) => ({
+    params: { id: projekt.id },
+    props: { projekt, davor: bereite.at(i - 1), danach: bereite[(i + 1) % bereite.length] },
+  }));
+}
+
+const { projekt: p, davor, danach } = Astro.props;
+const anfang = new URL(pfad('/'), Astro.site).href;
+const adresse = new URL(Astro.url.pathname, Astro.site).href;
+
+const daten = [
+  {
+    '@type': 'CreativeWork',
+    '@id': `${adresse}#werk`,
+    name: p.name,
+    headline: p.titel.replaceAll('*', ''),
+    description: p.zweck,
+    genre: p.art,
+    creativeWorkStatus: p.status,
+    inLanguage: 'de-CH',
+    url: adresse,
+    creator: { '@id': `${anfang}#person` },
+    publisher: { '@id': `${anfang}#studio` },
+    mainEntityOfPage: { '@id': `${adresse}#seite` },
+    ...(p.adresse && { sameAs: p.adresse }),
+  },
+];
+---
+
+<Seite titel={p.seitentitel} beschreibung={p.beschreibung} daten={daten} pfad={[[p.name, `/projekte/${p.id}/`]]}>
+  <article>
+    <header class={`tafel feld-${p.feld}`}>
+      {p.bildDatei && <Image class="bild" src={p.bildDatei} alt={p.bildAlt} widths={[480, p.bildDatei.width]} sizes="100vw" loading="eager" fetchpriority="high" />}
+      {p.bildDatei && <div class="schatten" />}
+      <p class="etikett">Kapitel {p.nummer} von {anzahl} · {p.name}</p>
+      <h1 class="satz"><Betont text={p.titel} /></h1>
+      <p class="lead">{p.zweck}</p>
+    </header>
+
+    <div class="bogen zwei">
+      <div class="teil">
+        <h2 class="verborgen">Die Frage dahinter</h2>
+        <p class="frage">{p.frage}</p>
+        <p>{p.beschrieb}</p>
+        {p.adresse && <p><a class="weiter" href={p.adresse} rel="noopener">{p.name} besuchen</a></p>}
+      </div>
+      <dl class="angaben">
+        <dt>Art</dt>
+        <dd>{p.art}</dd>
+        <dt>Stand</dt>
+        <dd>{p.status}</dd>
+        <dt>Kapitel</dt>
+        <dd>{p.nummer} von {anzahl}</dd>
+      </dl>
+    </div>
+  </article>
+
+  <nav class="nachbarn" aria-label="Weitere Kapitel">
+    <a class="weiter zurueck" href={pfad(`/projekte/${davor.id}/`)}>{davor.name}</a>
+    <a class="weiter" href={pfad(`/#${p.id}`)}>Zur Ausstellung</a>
+    <a class="weiter" href={pfad(`/projekte/${danach.id}/`)}>{danach.name}</a>
+  </nav>
+</Seite>

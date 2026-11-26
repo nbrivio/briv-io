@@ -1,0 +1,16 @@
+node_modules/
+dist/
+.astro/
+berichte/
+.DS_Store
+.env
+.env.*
+
+# Arbeitsunterlagen bleiben lokal: Das Repository ist öffentlich.
+/briv-io-source/
+/Bilder/
+*.zip
+
+# Das Logo liegt für die Seite unter src/assets/marke/. Die Vorlage in docs/ bleibt lokal.
+/docs/*.png
+/BRAND.md

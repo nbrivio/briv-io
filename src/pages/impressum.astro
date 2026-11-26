@@ -1,0 +1,32 @@
+---
+import '../stile/blatt.css';
+import Seite from '../layouts/Seite.astro';
+import { studio, anschrift } from '../inhalt/studio.js';
+import { texte } from '../inhalt/texte.js';
+
+const s = texte.impressum;
+const zeigeAnbieter = 'impressum' === 'impressum';
+---
+
+<Seite titel={s.seitentitel} beschreibung={s.beschreibung} pfad={[[s.titel, '/impressum/']]}>
+  <header class="tafel schlicht">
+    <h1 class="satz">{s.titel}</h1>
+    {s.stand && <p class="lead">Stand {s.stand}</p>}
+  </header>
+  <div class="bogen">
+    {
+      zeigeAnbieter && (
+        <div class="teil">
+          <h2>Anbieter</h2>
+          <address>
+            {studio.name}<br />{studio.person}
+            {anschrift && (<><br />{anschrift.strasse}<br />{anschrift.plz} {anschrift.ort}</>)}
+            <br />Schweiz
+          </address>
+          {studio.email && <p><a href={`mailto:${studio.email}`}>{studio.email}</a></p>}
+        </div>
+      )
+    }
+    {s.teile.map((teil) => (<div class="teil"><h2>{teil.titel}</h2>{teil.text.map((absatz) => <p>{absatz}</p>)}</div>))}
+  </div>
+</Seite>

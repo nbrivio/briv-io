@@ -1,0 +1,14 @@
+---
+import { studio } from '../inhalt/studio.js';
+import { pfad } from '../inhalt/pfad.js';
+---
+
+<footer class="fuss">
+  <p class="anbieter">{studio.name} ist das Product Studio von {studio.person}, Schweiz</p>
+  <ul>
+    {studio.email && <li><a href={`mailto:${studio.email}`}>{studio.email}</a></li>}
+    <li><a href={pfad('/studio/')}>Studio</a></li>
+    <li><a href={pfad('/impressum/')}>Impressum</a></li>
+    <li><a href={pfad('/datenschutz/')}>Datenschutz</a></li>
+  </ul>
+</footer>

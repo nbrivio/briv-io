@@ -1,0 +1,275 @@
+@layer schriften, grund, bausteine;
+
+@layer schriften {
+  @font-face {
+    font-family: 'Bricolage Grotesque';
+    font-style: normal;
+    font-weight: 200 800;
+    font-display: swap;
+    src: url('../assets/schriften/bricolage-grotesque-latin-wght-normal.woff2') format('woff2-variations');
+  }
+  @font-face {
+    font-family: 'Instrument Sans';
+    font-style: normal;
+    font-weight: 400 700;
+    font-display: swap;
+    src: url('../assets/schriften/instrument-sans-latin-wght-normal.woff2') format('woff2-variations');
+  }
+}
+
+@layer grund {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
+    scroll-padding-block-start: calc(var(--kopf-h) + 1rem);
+    background: var(--bi-tinte);
+  }
+
+  body {
+    margin: 0;
+    overflow-x: clip;
+    background: var(--bi-tinte);
+    color: var(--bi-papier);
+    font-family: var(--bi-font-text);
+    font-size: var(--fs-text);
+    line-height: 1.55;
+  }
+
+  h1,
+  h2,
+  h3,
+  p,
+  figure,
+  dl,
+  dd,
+  ol,
+  ul,
+  address {
+    margin: 0;
+  }
+
+  ol,
+  ul {
+    padding: 0;
+    list-style: none;
+  }
+
+  address {
+    font-style: normal;
+  }
+
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+
+  a {
+    color: inherit;
+    text-underline-offset: 0.22em;
+    text-decoration-thickness: 1px;
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--bi-gold);
+    outline-offset: 4px;
+  }
+
+  ::selection {
+    background: var(--bi-gold);
+    color: var(--bi-tinte);
+  }
+
+  @media (forced-colors: active) {
+    :focus-visible {
+      outline-color: Highlight;
+    }
+  }
+}
+
+@layer bausteine {
+  .verborgen {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+
+  .sprung {
+    position: absolute;
+    left: var(--rand);
+    top: -5rem;
+    z-index: 30;
+    padding: 0.7rem 1rem;
+    background: var(--bi-papier);
+    color: var(--bi-tinte);
+  }
+  .sprung:focus {
+    top: 0.5rem;
+  }
+
+  /* Die Wortmarke als Satz: «briv», das goldene Band, «io». Die gezeichnete Marke ersetzt sie später. */
+  .marke {
+    display: inline-flex;
+    align-items: center;
+    font-family: var(--bi-font-titel);
+    font-weight: 600;
+    font-size: 1.75rem;
+    letter-spacing: -0.045em;
+    line-height: 1;
+  }
+  .marke .band {
+    display: inline-block;
+    width: 0.95em;
+    height: 0.085em;
+    margin: 0.12em 0.07em 0;
+    background: var(--bi-gold);
+  }
+
+  /* Kopf: Marke und Claim links, zwei Verweise rechts. Steht immer auf Tinte. */
+  .kopf {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--a2);
+    height: var(--kopf-h);
+    padding: 1rem var(--rand) 0;
+  }
+  .kopf.fest {
+    position: fixed;
+    inset: 0 0 auto;
+    z-index: 20;
+    pointer-events: none;
+  }
+  .kopf.fest > * {
+    pointer-events: auto;
+  }
+  .kopf-marke {
+    display: grid;
+    gap: 0.2rem;
+    min-height: 44px;
+    text-decoration: none;
+  }
+  .claim {
+    font-size: 0.75rem;
+    letter-spacing: 0.03em;
+  }
+  .kopf nav ul {
+    display: flex;
+    gap: clamp(0.25rem, 2vw, 1.5rem);
+  }
+  .kopf nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding-inline: 0.4rem;
+    font-size: var(--fs-marke);
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    text-decoration: none;
+  }
+  .kopf nav a[aria-current='page'] {
+    text-decoration: underline;
+    text-decoration-color: var(--bi-gold);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 0.5em;
+  }
+
+  /* Auf schmalen Handys führt die Marke zur Ausstellung, der Verweis daneben entfällt. */
+  @media (max-width: 420px) {
+    .kopf nav li:first-child {
+      display: none;
+    }
+  }
+
+  .etikett {
+    font-family: var(--bi-font-text);
+    font-size: var(--fs-marke);
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  /* Grosse Sätze: Bricolage in 600, die betonte Stelle in kursiver Georgia. */
+  .satz {
+    font-family: var(--bi-font-titel);
+    font-weight: 600;
+    font-size: var(--fs-satz);
+    line-height: 0.96;
+    letter-spacing: -0.045em;
+    text-wrap: balance;
+    overflow-wrap: anywhere;
+  }
+  .satz em {
+    font-family: var(--bi-font-kursiv);
+    font-weight: 400;
+    letter-spacing: -0.04em;
+  }
+
+  .weiter {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.75rem;
+    min-height: 44px;
+    font-size: 0.9375rem;
+    font-weight: 600;
+    text-decoration: none;
+    /* Eine Linie unter Wort und Pfeil, statt zwei getrennter Unterstreichungen. */
+    background: linear-gradient(currentColor, currentColor) 0 calc(50% + 0.95em) / 100% 1px no-repeat;
+  }
+  .weiter::after {
+    content: '→';
+    transition: transform 200ms var(--kurve);
+  }
+
+  .fuss {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--a2) var(--a4);
+    padding: var(--a4) var(--rand) var(--a3);
+    border-top: 1px solid var(--bi-linie);
+    font-size: 0.875rem;
+    scroll-snap-align: end;
+  }
+  .fuss ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--a3);
+  }
+  .fuss a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+  .fuss .anbieter {
+    color: var(--bi-nebel);
+  }
+
+  @media (hover: hover) {
+    .kopf a:hover,
+    .fuss a:hover,
+    .kapitel:not(.blattwand) .weiter:hover {
+      color: var(--bi-gold);
+    }
+    .weiter:hover::after {
+      transform: translateX(0.3rem);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .weiter::after {
+      transition: none;
+    }
+  }
+}

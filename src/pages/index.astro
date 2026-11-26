@@ -1,0 +1,86 @@
+---
+import '../stile/ausstellung.css';
+import { Image } from 'astro:assets';
+import logo from '../assets/marke/briv-io-schwalben.png';
+import Seite from '../layouts/Seite.astro';
+import { projekte, anzahl } from '../inhalt/projekte.js';
+import { studio } from '../inhalt/studio.js';
+import Betont from '../components/Betont.astro';
+import { texte, inWorten } from '../inhalt/texte.js';
+import { pfad } from '../inhalt/pfad.js';
+
+const s = texte.start;
+const anfang = new URL(pfad('/'), Astro.site).href;
+const [claimAnfang, claimSchluss] = [studio.claim.split(' ').slice(0, -1).join(' '), studio.claim.split(' ').at(-1)];
+
+const daten = [
+  {
+    '@type': 'ItemList',
+    '@id': `${anfang}#ausstellung`,
+    name: 'Die Kapitel der Ausstellung',
+    itemListElement: projekte
+      .filter((p) => p.bereit)
+      .map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.name, url: new URL(pfad(`/projekte/${p.id}/`), Astro.site).href })),
+  },
+];
+---
+
+<Seite start titel={s.seitentitel} beschreibung={s.beschreibung} daten={daten}>
+  <div class="ausstellung">
+    <section class="kapitel feld-nacht" id="auftakt" aria-labelledby="auftakt-titel">
+      <div class="inhalt">
+        <Image class="zeichen" src={logo} alt={`${studio.name}: die Wortmarke auf einem goldenen Band, getragen von zwei Schwalben`} widths={[400, 640, 880, 1216]} sizes="(max-width: 700px) 86vw, 38rem" quality={70} loading="eager" fetchpriority="high" />
+        <h1 id="auftakt-titel"><span class="satz leise" lang="en">{claimAnfang} <em>{claimSchluss}</em></span></h1>
+        <p class="zweck">{s.lead}</p>
+      </div>
+      <p class="schild">{s.hinweis.replace('{anzahl}', inWorten(projekte.length))}</p>
+      <p class="zaehler" aria-hidden="true">00 / {anzahl}</p>
+    </section>
+
+    {
+      projekte.map((p) => (
+        <section class={`kapitel feld-${p.feld}`} id={p.id} aria-labelledby={`${p.id}-titel`}>
+          {p.bildDatei && <Image class="bild" src={p.bildDatei} alt={p.bildAlt} widths={[480, p.bildDatei.width]} sizes="100vw" />}
+          {p.bildDatei ? <div class="schatten" /> : <div class="ziffer" aria-hidden="true">{p.nummer}</div>}
+          <div class="raster" />
+          <div class="inhalt">
+            <h2 id={`${p.id}-titel`}>
+              <span class="etikett">{p.nummer} · {p.name}</span>
+              {p.bereit ? (
+                <span class="satz"><Betont text={p.titel} /></span>
+              ) : (
+                <span class="satz leise">{s.vorbereitung}</span>
+              )}
+            </h2>
+            {p.bereit && <p class="zweck">{p.zweck}</p>}
+            {p.bereit && <a class="weiter" href={pfad(`/projekte/${p.id}/`)}>{p.name} ansehen</a>}
+          </div>
+          {p.bereit && (
+            <dl class="schild">
+              <dt>{p.art}</dt>
+              <dd>{p.status}</dd>
+            </dl>
+          )}
+          <p class="zaehler" aria-hidden="true">{p.nummer} / {anzahl}</p>
+        </section>
+      ))
+    }
+
+    <section class="kapitel feld-tinte blattwand" id="studio" aria-labelledby="studio-titel">
+      <div class="bogen-start">
+        <p class="etikett">Studio</p>
+        <h2 id="studio-titel"><span class="satz"><Betont text={s.studioTitel} /></span></h2>
+        <p>{s.studioText}</p>
+        <a class="weiter" href={pfad('/studio/')}>Zum Studio</a>
+      </div>
+    </section>
+  </div>
+
+  <nav class="faden" aria-label="Kapitel der Ausstellung">
+    <ol>
+      <li><a href="#auftakt"><span class="nr" aria-hidden="true">00</span><span class="verborgen">Auftakt</span></a></li>
+      {projekte.map((p) => <li><a href={`#${p.id}`}><span class="nr" aria-hidden="true">{p.nummer}</span><span class="verborgen">Kapitel {p.nummer}: {p.name}</span></a></li>)}
+      <li><a href="#studio"><span class="nr" aria-hidden="true">St</span><span class="verborgen">Studio</span></a></li>
+    </ol>
+  </nav>
+</Seite>

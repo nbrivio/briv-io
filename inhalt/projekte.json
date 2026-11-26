@@ -1,0 +1,94 @@
+{
+  "freigegeben": false,
+  "projekte": [
+    {
+      "id": "ryse",
+      "name": "ryse",
+      "bereit": true,
+      "art": "Digitales Produkt",
+      "status": "Live",
+      "feld": "rot",
+      "titel": "Weniger Papierkram, mehr *echte Arbeit*",
+      "zweck": "Offerten, Rechnungen und Vorbuchhaltung für Freelancer und Kleinstfirmen in der Schweiz.",
+      "frage": "Was wäre, wenn sich ein kleines Geschäft weniger nach Büro anfühlt?",
+      "beschrieb": "ryse bringt Offerten, Rechnungen und die tägliche Vorbuchhaltung an einen Ort. Gemacht für Menschen, die lieber arbeiten als ablegen.",
+      "seitentitel": "ryse: Vorbuchhaltung für Freelancer",
+      "beschreibung": "ryse ist eine Schweizer App für Offerten, Rechnungen und Vorbuchhaltung, gemacht für Freelancer und Kleinstfirmen. Ein Produkt von briv—io.",
+      "bild": "ryse",
+      "bildAlt": "Ein Handwerker an der Werkbank, von der ein endloses Rechnungsband abrollt"
+    },
+    {
+      "id": "a-real",
+      "name": "a—real",
+      "bereit": false,
+      "feld": "tinte"
+    },
+    {
+      "id": "mietblick",
+      "name": "mietblick",
+      "bereit": true,
+      "art": "Digitales Produkt",
+      "status": "In Arbeit",
+      "feld": "blau",
+      "titel": "Wohnen ist kompliziert, es zu *verstehen* nicht",
+      "zweck": "Macht Mietverträge und Fragen aus dem Mietalltag verständlich.",
+      "frage": "Was wäre, wenn alle den Vertrag verstehen, mit dem sie leben?",
+      "beschrieb": "mietblick führt durch komplexe Mietunterlagen. Mit verständlichen Erklärungen, nicht mit Rechtsberatung.",
+      "seitentitel": "mietblick: Mietverträge verstehen",
+      "beschreibung": "mietblick macht Mietverträge und Fragen aus dem Schweizer Mietalltag verständlich, mit Erklärungen statt Rechtsberatung. Ein Produkt von briv—io.",
+      "bild": "mietblick",
+      "bildAlt": "Eine Tür und ein Haus, gebaut aus Dokumenten",
+      "adresse": "https://www.mietblick-app.ch"
+    },
+    {
+      "id": "gwunderfink",
+      "name": "Gwunderfink",
+      "bereit": true,
+      "art": "Newsletter",
+      "status": "Experiment",
+      "feld": "oliv",
+      "titel": "Ein bisschen mehr *Staunen*",
+      "zweck": "Ausflüge in der Nähe entdecken und mehr aus der gemeinsamen Zeit machen.",
+      "frage": "Was wäre, wenn das nächste Familienabenteuer schon um die Ecke liegt?",
+      "beschrieb": "Ausgewählte Ausflugsideen für Familien in der Schweiz. Jede Woche, als Newsletter auf WhatsApp.",
+      "seitentitel": "Gwunderfink: Ausflugsideen für Familien",
+      "beschreibung": "Gwunderfink schickt Familien in der Schweiz jede Woche ausgewählte Ausflugsideen aus der Nähe, als Newsletter auf WhatsApp. Ein Experiment von briv—io.",
+      "bild": "gwunderfink",
+      "bildAlt": "Ein Nest, in dem eine Abenteuerlandschaft liegt"
+    },
+    {
+      "id": "sie-und-er",
+      "name": "Sie&Er Dessous",
+      "bereit": true,
+      "art": "Website",
+      "status": "In Arbeit",
+      "feld": "burgund",
+      "titel": "Gefühl vor *Produkt*",
+      "zweck": "Markenauftritt für ein Fachgeschäft in Amriswil, der in den Laden führt statt in einen Warenkorb.",
+      "frage": "Was wäre, wenn eine Website einen Zustand verkauft statt ein Sortiment?",
+      "beschrieb": "Grosse ruhige Sätze, Bilder, die am Satz vorbeiziehen, und ein gezeichneter Lageplan statt einer eingebetteten Karte. Ohne Tracker, ohne Cookies, ohne Formular.",
+      "seitentitel": "Sie&Er Dessous: Website für ein Fachgeschäft",
+      "beschreibung": "Markenauftritt für das Fachgeschäft Sie&Er Dessous in Amriswil: ruhig, schnell und ohne Tracker. Eine Website von briv—io."
+    },
+    {
+      "id": "aperozauber",
+      "name": "Apérozauber",
+      "bereit": true,
+      "art": "Website",
+      "status": "In Arbeit",
+      "feld": "ocker",
+      "titel": "Verkauft wird das *Gefühl*",
+      "zweck": "Eine Website, die eine Marke spürbar macht und Anfragen von Firmen und Privaten bringt.",
+      "frage": "Was wäre, wenn eine Apéroplatte zuerst als Stimmung ankommt?",
+      "beschrieb": "Ein Auftritt mit Handschrift und Bewegung. Die Anfrage kennt pro Platte Anzahl und Grösse, der Rest ist Vorfreude.",
+      "seitentitel": "Apérozauber: Website für eine Apéro-Marke",
+      "beschreibung": "Website für Apérozauber: eine Marke, die das Gefühl verkauft und nicht die Esswaren, mit einer Anfrage für Firmen und Private. Eine Website von briv—io."
+    },
+    {
+      "id": "versed-academy",
+      "name": "Versed Academy",
+      "bereit": false,
+      "feld": "nacht"
+    }
+  ]
+}
