@@ -26,6 +26,8 @@ Alles, was sich ändert, liegt unter `inhalt/`, getrennt vom Code. Eine Änderun
 
 **Titelblatt oder ganze Seite:** Solange in `inhalt/projekte.json` `"oeffentlich": false` steht, zeigt die Seite nur das Titelblatt mit Zeichen und Claim. Mit `true` erscheinen die Projekte auf der Startseite und ihre eigenen Seiten.
 
+**Impressum und Datenschutz:** erscheinen erst, wenn in `inhalt/texte.json` `"rechtOeffentlich": true` steht. Vor dem Umzug auf die richtige Adresse gehören beide eingeschaltet.
+
 **Ein Kapitelbild einhängen:** Datei nach `src/assets/bilder/kapitel/` legen (Querformat, so gross wie vorhanden), im Kapitel `"bild": "<Dateiname ohne Endung>"` und `"bildAlt": "<die Szene in einem Satz>"` eintragen. Ohne Bild trägt das Kapitel seine Farbe (`feld`) und seine Nummer.
 
 **Felder:** `tinte`, `nacht`, `rot`, `burgund`, `blau`, `oliv`, `ocker`. **Stand:** `Konzept`, `Experiment`, `In Arbeit`, `Live`. Kein Kapitel behauptet mehr, als es ist.

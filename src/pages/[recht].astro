@@ -2,13 +2,19 @@
 import '../stile/blatt.css';
 import Seite from '../layouts/Seite.astro';
 import { studio, anschrift } from '../inhalt/studio.js';
-import { texte } from '../inhalt/texte.js';
+import { texte, rechtsseiten } from '../inhalt/texte.js';
 
-const s = texte.datenschutz;
-const zeigeAnbieter = 'datenschutz' === 'impressum';
+// Impressum und Datenschutz aus einer Vorlage. Sind sie ausgeschaltet, entsteht keine der beiden Seiten.
+export function getStaticPaths() {
+  return rechtsseiten.map((recht) => ({ params: { recht } }));
+}
+
+const { recht } = Astro.params;
+const s = texte[recht];
+const zeigeAnbieter = recht === 'impressum';
 ---
 
-<Seite titel={s.seitentitel} beschreibung={s.beschreibung} pfad={[[s.titel, '/datenschutz/']]}>
+<Seite titel={s.seitentitel} beschreibung={s.beschreibung} pfad={[[s.titel, `/${recht}/`]]}>
   <header class="tafel schlicht">
     <h1 class="satz">{s.titel}</h1>
     {s.stand && <p class="lead">Stand {s.stand}</p>}

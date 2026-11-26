@@ -1,13 +1,19 @@
 ---
 import { studio } from '../inhalt/studio.js';
+import { texte, rechtsseiten } from '../inhalt/texte.js';
 import { pfad } from '../inhalt/pfad.js';
+
+const verweise = rechtsseiten.length > 0 || studio.email;
 ---
 
 <footer class="fuss">
   <p class="anbieter">{studio.name} ist das Product Studio von {studio.person}, Schweiz</p>
-  <ul>
-    {studio.email && <li><a href={`mailto:${studio.email}`}>{studio.email}</a></li>}
-    <li><a href={pfad('/impressum/')}>Impressum</a></li>
-    <li><a href={pfad('/datenschutz/')}>Datenschutz</a></li>
-  </ul>
+  {
+    verweise && (
+      <ul>
+        {studio.email && <li><a href={`mailto:${studio.email}`}>{studio.email}</a></li>}
+        {rechtsseiten.map((recht) => <li><a href={pfad(`/${recht}/`)}>{texte[recht].titel}</a></li>)}
+      </ul>
+    )
+  }
 </footer>

@@ -9,6 +9,8 @@ const teile = z.array(z.object({ titel, text: z.array(z.string().min(1)).min(1) 
 
 const schema = z.object({
   freigegeben: z.boolean(),
+  // Mit false gibt es weder Impressum noch Datenschutz, und der Fuss verweist nicht darauf.
+  rechtOeffentlich: z.boolean(),
   start: z.object({
     ...kopf,
     vorbereitung: z.string().min(10).max(60),
@@ -18,6 +20,9 @@ const schema = z.object({
 });
 
 export const texte = schema.parse(roh);
+
+/** Die Rechtsseiten, die gebaut werden: beide oder keine. */
+export const rechtsseiten = texte.rechtOeffentlich ? ['impressum', 'datenschutz'] : [];
 
 if (istLive && !texte.freigegeben) {
   throw new Error('Die Texte sind noch nicht freigegeben (inhalt/texte.json).');

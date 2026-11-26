@@ -1,6 +1,7 @@
 // Kurze, sachliche Beschreibung für Assistenten. Alles stammt aus denselben Inhaltsdateien wie die Seiten.
 import { studio } from '../inhalt/studio.js';
 import { projekte } from '../inhalt/projekte.js';
+import { texte, rechtsseiten } from '../inhalt/texte.js';
 import { pfad } from '../inhalt/pfad.js';
 
 export function GET({ site }) {
@@ -15,8 +16,7 @@ export function GET({ site }) {
     '## Weitere Seiten',
     '',
     `- [Startseite](${voll('/')})`,
-    `- [Impressum](${voll('/impressum/')})`,
-    `- [Datenschutz](${voll('/datenschutz/')})`,
+    ...rechtsseiten.map((recht) => `- [${texte[recht].titel}](${voll(`/${recht}/`)})`),
     '',
   ];
   return new Response(zeilen.join('\n'), { headers: { 'Content-Type': 'text/plain; charset=utf-8' } });
