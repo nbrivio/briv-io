@@ -76,17 +76,15 @@ Einmalig in den Einstellungen des Repositorys:
 2. **Branches**: `main` schützen, Änderungen nur über Pull Request mit bestandener Prüfung «Bauen und prüfen».
 3. **Security**: Dependabot-Meldungen und Sicherheitsupdates einschalten.
 
-Drei Variablen (Settings, Variables, Actions) steuern die Adresse. Ohne sie läuft die Testadresse.
+Die Seite läuft unter `www.nicolasbrivio.ch`. Adresse und Pfad stehen als Voreinstellung im Workflow. Eine Variable (Settings, Variables, Actions) steuert die Stufe:
 
-| Variable | Testadresse (Voreinstellung) | Auf der richtigen Adresse |
+| Variable | Voreinstellung | Für den Livegang |
 | --- | --- | --- |
-| `SITE_ADRESSE` | `https://<konto>.github.io` | `https://www.nicolasbrivio.ch` |
-| `SITE_PFAD` | `/briv-io` | `/` |
 | `SITE_STUFE` | `test` | `live` |
 
-In der Stufe `test` sperren `robots.txt` und die Seiten selbst alle Suchmaschinen.
+In der Stufe `test` sperren `robots.txt` und die Seiten selbst alle Suchmaschinen, auch unter der eigenen Domain. `live` verlangt freigegebene Texte sowie Adresse und Mail in `inhalt/studio.json`. `SITE_ADRESSE` und `SITE_PFAD` lassen sich bei Bedarf als Variablen übersteuern.
 
-**Domain aufschalten:** in den Pages-Einstellungen `www.nicolasbrivio.ch` als eigene Domain eintragen, beim Anbieter der Domain `www` als CNAME auf `<konto>.github.io` legen und die Hauptdomain mit den vier A-Einträgen von GitHub Pages versehen, damit sie auf `www` weiterleitet. Danach «Enforce HTTPS» einschalten und die drei Variablen umstellen.
+**Domain:** In den Pages-Einstellungen ist `www.nicolasbrivio.ch` als eigene Domain eingetragen. Beim Anbieter der Domain zeigt `www` als CNAME auf `nbrivio.github.io`, die Hauptdomain mit den A- und AAAA-Einträgen von GitHub Pages auf dieselbe Seite und leitet auf `www` weiter.
 
 ## Sicherheit
 
