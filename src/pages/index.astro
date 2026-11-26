@@ -6,7 +6,7 @@ import Seite from '../layouts/Seite.astro';
 import { projekte, anzahl } from '../inhalt/projekte.js';
 import { studio } from '../inhalt/studio.js';
 import Betont from '../components/Betont.astro';
-import { texte, inWorten } from '../inhalt/texte.js';
+import { texte } from '../inhalt/texte.js';
 import { pfad } from '../inhalt/pfad.js';
 
 const s = texte.start;
@@ -16,8 +16,8 @@ const [claimAnfang, claimSchluss] = [studio.claim.split(' ').slice(0, -1).join('
 const daten = [
   {
     '@type': 'ItemList',
-    '@id': `${anfang}#ausstellung`,
-    name: 'Die Kapitel der Ausstellung',
+    '@id': `${anfang}#projekte`,
+    name: 'Projekte',
     itemListElement: projekte
       .filter((p) => p.bereit)
       .map((p, i) => ({ '@type': 'ListItem', position: i + 1, name: p.name, url: new URL(pfad(`/projekte/${p.id}/`), Astro.site).href })),
@@ -31,9 +31,7 @@ const daten = [
       <div class="inhalt">
         <Image class="zeichen" src={logo} alt={`${studio.name}: die Wortmarke auf einem goldenen Band, getragen von zwei Schwalben`} widths={[400, 640, 880, 1216]} sizes="(max-width: 700px) 86vw, 38rem" quality={70} loading="eager" fetchpriority="high" />
         <h1 id="auftakt-titel"><span class="satz leise" lang="en">{claimAnfang} <em>{claimSchluss}</em></span></h1>
-        <p class="zweck">{s.lead}</p>
       </div>
-      <p class="schild">{s.hinweis.replace('{anzahl}', inWorten(projekte.length))}</p>
       <p class="zaehler" aria-hidden="true">00 / {anzahl}</p>
     </section>
 
@@ -65,22 +63,12 @@ const daten = [
         </section>
       ))
     }
-
-    <section class="kapitel feld-tinte blattwand" id="studio" aria-labelledby="studio-titel">
-      <div class="bogen-start">
-        <p class="etikett">Studio</p>
-        <h2 id="studio-titel"><span class="satz"><Betont text={s.studioTitel} /></span></h2>
-        <p>{s.studioText}</p>
-        <a class="weiter" href={pfad('/studio/')}>Zum Studio</a>
-      </div>
-    </section>
   </div>
 
-  <nav class="faden" aria-label="Kapitel der Ausstellung">
+  <nav class="faden" aria-label="Projekte">
     <ol>
       <li><a href="#auftakt"><span class="nr" aria-hidden="true">00</span><span class="verborgen">Auftakt</span></a></li>
-      {projekte.map((p) => <li><a href={`#${p.id}`}><span class="nr" aria-hidden="true">{p.nummer}</span><span class="verborgen">Kapitel {p.nummer}: {p.name}</span></a></li>)}
-      <li><a href="#studio"><span class="nr" aria-hidden="true">St</span><span class="verborgen">Studio</span></a></li>
+      {projekte.map((p) => <li><a href={`#${p.id}`}><span class="nr" aria-hidden="true">{p.nummer}</span><span class="verborgen">{p.nummer}: {p.name}</span></a></li>)}
     </ol>
   </nav>
 </Seite>

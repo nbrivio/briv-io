@@ -1,7 +1,6 @@
 // Kurze, sachliche Beschreibung für Assistenten. Alles stammt aus denselben Inhaltsdateien wie die Seiten.
 import { studio } from '../inhalt/studio.js';
 import { projekte } from '../inhalt/projekte.js';
-import { texte } from '../inhalt/texte.js';
 import { pfad } from '../inhalt/pfad.js';
 
 export function GET({ site }) {
@@ -15,11 +14,7 @@ export function GET({ site }) {
     '',
     ...projekte.map((p) => (p.bereit ? `- [${p.name}](${voll(`/projekte/${p.id}/`)}): ${p.zweck} (${p.art}, ${p.status})` : `- ${p.name}: in Vorbereitung`)),
     '',
-    '## Studio',
-    '',
-    `- [Studio](${voll('/studio/')}): ${texte.studio.tuerText}`,
-    ...(studio.email ? [`- Kontakt: ${studio.email}`] : []),
-    '',
+    ...(studio.email ? ['## Kontakt', '', `- ${studio.email}`, ''] : []),
     '## Weitere Seiten',
     '',
     `- [Startseite](${voll('/')})`,

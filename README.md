@@ -1,6 +1,6 @@
 # briv—io
 
-Die Website von briv—io, dem Product Studio von Nicolas Brivio: eine Ausstellung von Ideen, Experimenten und Produkten. Statisch gebaut mit Astro, ausgeliefert über GitHub Pages unter `www.nicolasbrivio.ch`. Kein Formular, keine Messung, keine fremden Dienste.
+Die Website von briv—io, dem Product Studio von Nicolas Brivio: Ideen, Experimente und Produkte, ein Projekt je Bildschirm. Statisch gebaut mit Astro, ausgeliefert über GitHub Pages unter `www.nicolasbrivio.ch`. Kein Formular, keine Messung, keine fremden Dienste.
 
 ## Arbeiten
 
@@ -20,8 +20,8 @@ Alles, was sich ändert, liegt unter `inhalt/`, getrennt vom Code. Eine Änderun
 
 | Datei | Inhalt |
 | --- | --- |
-| `inhalt/projekte.json` | Die Kapitel der Ausstellung in ihrer Reihenfolge. Mit `bereit: true` hat ein Kapitel Titel, Zweck, Frage, Beschrieb und eine eigene Seite. Mit `bereit: false` ist es angekündigt und steht nur mit Namen da |
-| `inhalt/texte.json` | Texte von Auftakt, Studio, Impressum und Datenschutz. Ein Teil zwischen Sternen wird kursiv gesetzt |
+| `inhalt/projekte.json` | Die Projekte in ihrer Reihenfolge. Mit `bereit: true` hat ein Kapitel Titel, Zweck, Frage, Beschrieb und eine eigene Seite. Mit `bereit: false` ist es angekündigt und steht nur mit Namen da |
+| `inhalt/texte.json` | Kopfangaben der Startseite, Impressum und Datenschutz |
 | `inhalt/studio.json` | Name, Person, Adresse und Mail. Kopf, Fuss, Impressum und strukturierte Daten lesen hier |
 
 **Ein Kapitelbild einhängen:** Datei nach `src/assets/bilder/kapitel/` legen (Querformat, so gross wie vorhanden), im Kapitel `"bild": "<Dateiname ohne Endung>"` und `"bildAlt": "<die Szene in einem Satz>"` eintragen. Ohne Bild trägt das Kapitel seine Farbe (`feld`) und seine Nummer.
@@ -37,11 +37,11 @@ Der Bau prüft die Angaben. Er bricht ab, wenn ein Pflichtfeld fehlt, ein Bild k
 ```
 inhalt/         Inhalte (siehe oben)
 src/assets/     Bilder, Schriften, Zeichen
-src/stile/      Token, Grundstile, Ausstellung, Blatt (Unterseiten)
+src/stile/      Token, Grundstile, Startseite (ausstellung.css), Unterseiten (blatt.css)
 src/skripte/    Kapitel im Bild, Faden, Pfeiltasten
 src/layouts/    Seitengerüst mit Kopfangaben und strukturierten Daten
 src/components/ Kopf, Fuss, Wortmarke
-src/pages/      Ausstellung, Kapitelseiten, Studio, Recht, robots.txt, llms.txt
+src/pages/      Startseite, Projektseiten, Recht, robots.txt, llms.txt
 src/inhalt/     Einlesen und Prüfen der Inhalte
 pruefungen/     Prüfungen vor jeder Veröffentlichung
 werkzeuge/      Hilfen, die nur bei Bedarf laufen (Vorschaubild und Favicon: npm run markenbilder)
@@ -57,7 +57,7 @@ docs/           Entscheide und offene Punkte
 | `pruefen:kontrast` | Farbpaare aus `pruefungen/kontrast.json` gegen ihre Schwelle |
 | `pruefen:vermerke` | Dateien, gebaute Seite und Commit-Texte auf Werkzeug-Vermerke |
 | `pruefen:abhaengigkeiten` | Bekannte Sicherheitslücken, mit begründeten und befristeten Ausnahmen |
-| `pruefen:browser` | Fünf Bildschirmbreiten in Chrome: kein Überlauf, keine Fehler, keine Abrufe nach aussen, WCAG 2.2 AA, Tastatur und Fokus. Dazu die Ausstellung (jedes Kapitel passt in den Schirm, die Pfeiltaste führt ein Kapitel weiter) und jede Seite ohne JavaScript |
+| `pruefen:browser` | Fünf Bildschirmbreiten in Chrome: kein Überlauf, keine Fehler, keine Abrufe nach aussen, WCAG 2.2 AA, Tastatur und Fokus. Dazu die Startseite (jedes Kapitel passt in den Schirm, die Pfeiltaste führt ein Kapitel weiter) und jede Seite ohne JavaScript |
 | `pruefen:ladezeit` | Startseite wie auf einem mittleren Handy: grösstes Element unter 2,5 s, Layoutsprung unter 0,1, Gewicht unter 1 MB |
 
 Hausregeln im Gate: kein ß, keine Gedankenstriche ausser in den Namen «briv—io» und «a—real», Guillemets statt gerader Anführungszeichen, keine Platzhalter, Titel ohne Punkt am Schluss.

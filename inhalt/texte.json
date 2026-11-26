@@ -2,37 +2,8 @@
   "freigegeben": false,
   "start": {
     "seitentitel": "briv—io: Product Studio aus der Schweiz",
-    "beschreibung": "briv—io ist das unabhängige Product Studio von Nicolas Brivio. Eine Ausstellung von Ideen, Experimenten und Produkten aus der Schweiz.",
-    "lead": "Eine fortlaufende Erkundung des Möglichen",
-    "hinweis": "Eine Ausstellung in {anzahl} Kapiteln",
-    "vorbereitung": "Dieses Kapitel wird gerade eingerichtet",
-    "studioTitel": "Neugier ist die *Konstante*",
-    "studioText": "Alles andere ist ein Experiment. Am Anfang steht eine Frage: Was wäre, wenn? Die Neugier bleibt, die Projekte verändern sich."
-  },
-  "studio": {
-    "seitentitel": "Studio: wer hinter briv—io steht",
-    "beschreibung": "Hinter briv—io steht Nicolas Brivio. Ein unabhängiges Product Studio aus der Schweiz, offen für Zusammenarbeit, gute Fragen und neue Ideen.",
-    "titel": "Aus Neugier *gebaut*",
-    "lead": "briv—io ist ein unabhängiges Product Studio aus der Schweiz. Dahinter steht Nicolas Brivio.",
-    "teile": [
-      {
-        "titel": "Alles beginnt mit einer Frage",
-        "text": [
-          "Was wäre, wenn? Warum nicht? Was könnte anders sein?",
-          "Neugier macht aus Beobachtungen Ideen, aus Ideen Experimente und aus Experimenten Dinge, die es gibt. Keine feste Branche, keine vorgegebenen Grenzen. Nur die Erkundung dessen, was möglich ist."
-        ]
-      },
-      {
-        "titel": "Die Neugier bleibt, die Projekte verändern sich",
-        "text": [
-          "briv—io ist keine Agentur und kein klassisches Portfolio. Die Projekte zeigen, was entsteht, wenn man seiner Neugier konsequent folgt.",
-          "Ein Projekt kann ein Konzept sein, ein Experiment oder ein Produkt, das läuft. Bei jedem Kapitel steht, was davon es ist."
-        ]
-      }
-    ],
-    "tuerTitel": "Die Tür steht *offen*",
-    "tuerText": "Offen für Zusammenarbeit, gute Fragen und neue Ideen.",
-    "leitsatz": "Stay curious. Build things. Repeat."
+    "beschreibung": "briv—io ist das unabhängige Product Studio von Nicolas Brivio: Ideen, Experimente und Produkte aus der Schweiz, aus Neugier gebaut.",
+    "vorbereitung": "Wird gerade eingerichtet"
   },
   "impressum": {
     "seitentitel": "Impressum und Kontakt",

@@ -45,7 +45,7 @@ const graph = {
       '@type': 'Person',
       '@id': `${anfang}#person`,
       name: studio.person,
-      url: new URL(pfad('/studio/'), Astro.site).href,
+      url: anfang,
       worksFor: { '@id': `${anfang}#studio` },
     },
     {
@@ -72,7 +72,7 @@ const graph = {
           {
             '@type': 'BreadcrumbList',
             '@id': `${adresse}#pfad`,
-            itemListElement: [['Ausstellung', '/'], ...brotkrumen].map(([name, ziel], i) => ({
+            itemListElement: [['Start', '/'], ...brotkrumen].map(([name, ziel], i) => ({
               '@type': 'ListItem',
               position: i + 1,
               name,

@@ -172,35 +172,6 @@
     letter-spacing: 0.13em;
   }
 
-  /* Das Studio: ein Blatt Papier an der Wand. */
-  .kapitel.blattwand {
-    padding-bottom: var(--a5);
-  }
-  .bogen-start {
-    display: grid;
-    gap: var(--a3);
-    justify-items: start;
-    width: min(100%, 60rem);
-    padding: clamp(1.75rem, 6vw, 5rem);
-    background: var(--bi-papier);
-    color: var(--bi-tinte);
-  }
-  .bogen-start .etikett {
-    color: var(--bi-rot);
-  }
-  .bogen-start .satz {
-    max-inline-size: 13ch;
-    font-size: clamp(2.25rem, 1rem + 4.6vw, 5rem);
-    text-shadow: none;
-  }
-  .bogen-start p {
-    max-inline-size: 38rem;
-    font-size: var(--fs-lead);
-  }
-  .bogen-start :focus-visible {
-    outline-color: var(--bi-rot);
-  }
-
   /* Der Faden am rechten Rand: ein Strich je Kapitel, das aktuelle in Gold. */
   .faden {
     position: fixed;
@@ -275,8 +246,7 @@
 
   /* Bewegung nur mit Skript und nur, wenn keine reduzierte Bewegung gewünscht ist. Ohne beides steht jedes Kapitel ruhig da. */
   @media (prefers-reduced-motion: no-preference) {
-    .bewegt .kapitel .inhalt > *,
-    .bewegt .kapitel .bogen-start > * {
+    .bewegt .kapitel .inhalt > * {
       opacity: 0;
       /* Unsichtbares ist auch für Hilfsmittel und Prüfwerkzeuge nicht da, statt als durchsichtiger Text zu gelten. */
       visibility: hidden;
@@ -286,8 +256,7 @@
         transform 900ms var(--kurve),
         visibility 0s 700ms;
     }
-    .bewegt .kapitel.aktiv .inhalt > *,
-    .bewegt .kapitel.aktiv .bogen-start > * {
+    .bewegt .kapitel.aktiv .inhalt > * {
       opacity: 1;
       visibility: visible;
       transform: none;
@@ -296,16 +265,11 @@
         transform 900ms var(--kurve),
         visibility 0s;
     }
-    .bewegt .kapitel.aktiv .inhalt > :nth-child(2),
-    .bewegt .kapitel.aktiv .bogen-start > :nth-child(2) {
+    .bewegt .kapitel.aktiv .inhalt > :nth-child(2) {
       transition-delay: 120ms;
     }
-    .bewegt .kapitel.aktiv .inhalt > :nth-child(3),
-    .bewegt .kapitel.aktiv .bogen-start > :nth-child(3) {
+    .bewegt .kapitel.aktiv .inhalt > :nth-child(3) {
       transition-delay: 240ms;
-    }
-    .bewegt .kapitel.aktiv .bogen-start > :nth-child(4) {
-      transition-delay: 360ms;
     }
     .bewegt .kapitel .bild {
       transform: scale(1.04);

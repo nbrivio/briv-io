@@ -134,7 +134,7 @@
     background: var(--bi-gold);
   }
 
-  /* Kopf: Marke und Claim links, zwei Verweise rechts. Steht immer auf Tinte. */
+  /* Kopf: Marke und Claim. Steht immer auf Tinte. */
   .kopf {
     display: flex;
     align-items: flex-start;
@@ -162,35 +162,6 @@
     font-size: 0.75rem;
     letter-spacing: 0.03em;
   }
-  .kopf nav ul {
-    display: flex;
-    gap: clamp(0.25rem, 2vw, 1.5rem);
-  }
-  .kopf nav a {
-    display: inline-flex;
-    align-items: center;
-    min-height: 44px;
-    padding-inline: 0.4rem;
-    font-size: var(--fs-marke);
-    font-weight: 600;
-    letter-spacing: 0.14em;
-    text-transform: uppercase;
-    text-decoration: none;
-  }
-  .kopf nav a[aria-current='page'] {
-    text-decoration: underline;
-    text-decoration-color: var(--bi-gold);
-    text-decoration-thickness: 2px;
-    text-underline-offset: 0.5em;
-  }
-
-  /* Auf schmalen Handys führt die Marke zur Ausstellung, der Verweis daneben entfällt. */
-  @media (max-width: 420px) {
-    .kopf nav li:first-child {
-      display: none;
-    }
-  }
-
   .etikett {
     font-family: var(--bi-font-text);
     font-size: var(--fs-marke);
@@ -259,7 +230,7 @@
   @media (hover: hover) {
     .kopf a:hover,
     .fuss a:hover,
-    .kapitel:not(.blattwand) .weiter:hover {
+    .kapitel .weiter:hover {
       color: var(--bi-gold);
     }
     .weiter:hover::after {

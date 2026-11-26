@@ -41,7 +41,7 @@ const daten = [
     <header class={`tafel feld-${p.feld}`}>
       {p.bildDatei && <Image class="bild" src={p.bildDatei} alt={p.bildAlt} widths={[480, p.bildDatei.width]} sizes="100vw" loading="eager" fetchpriority="high" />}
       {p.bildDatei && <div class="schatten" />}
-      <p class="etikett">Kapitel {p.nummer} von {anzahl} · {p.name}</p>
+      <p class="etikett">{p.nummer} von {anzahl} · {p.name}</p>
       <h1 class="satz"><Betont text={p.titel} /></h1>
       <p class="lead">{p.zweck}</p>
     </header>
@@ -58,15 +58,13 @@ const daten = [
         <dd>{p.art}</dd>
         <dt>Stand</dt>
         <dd>{p.status}</dd>
-        <dt>Kapitel</dt>
-        <dd>{p.nummer} von {anzahl}</dd>
-      </dl>
+              </dl>
     </div>
   </article>
 
-  <nav class="nachbarn" aria-label="Weitere Kapitel">
+  <nav class="nachbarn" aria-label="Weitere Projekte">
     <a class="weiter zurueck" href={pfad(`/projekte/${davor.id}/`)}>{davor.name}</a>
-    <a class="weiter" href={pfad(`/#${p.id}`)}>Zur Ausstellung</a>
+    <a class="weiter" href={pfad(`/#${p.id}`)}>Alle Projekte</a>
     <a class="weiter" href={pfad(`/projekte/${danach.id}/`)}>{danach.name}</a>
   </nav>
 </Seite>

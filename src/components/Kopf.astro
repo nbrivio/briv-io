@@ -4,11 +4,6 @@ import { studio } from '../inhalt/studio.js';
 import { pfad } from '../inhalt/pfad.js';
 
 const { fest = false } = Astro.props;
-const hier = Astro.url.pathname;
-const punkte = [
-  ['Ausstellung', pfad('/')],
-  ['Studio', pfad('/studio/')],
-];
 ---
 
 <header class:list={['kopf', { fest }]}>
@@ -16,9 +11,4 @@ const punkte = [
     <Marke />
     <span class="claim" lang="en">{studio.claim}.</span>
   </a>
-  <nav aria-label="Hauptnavigation">
-    <ul>
-      {punkte.map(([name, ziel]) => <li><a href={ziel} aria-current={hier === ziel ? 'page' : undefined}>{name}</a></li>)}
-    </ul>
-  </nav>
 </header>

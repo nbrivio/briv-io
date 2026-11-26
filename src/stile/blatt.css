@@ -112,12 +112,6 @@
     letter-spacing: -0.02em;
     text-wrap: balance;
   }
-  .leitsatz {
-    font-family: var(--bi-font-kursiv);
-    font-style: italic;
-    font-size: var(--fs-h3);
-    line-height: 1.2;
-  }
   .zwei {
     display: grid;
     gap: var(--a4) var(--a5);
@@ -164,7 +158,6 @@
       background: none;
       color: #000;
     }
-    .kopf nav,
     .nachbarn {
       display: none;
     }

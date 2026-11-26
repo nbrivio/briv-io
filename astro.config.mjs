@@ -11,7 +11,6 @@ const base = process.env.SITE_PFAD ?? '/';
 // So steht in der Sitemap ein ehrliches Datum und nicht der Tag des Neubaus.
 const quellen = {
   '/': ['inhalt/texte.json', 'inhalt/projekte.json', 'src/pages/index.astro'],
-  '/studio/': ['inhalt/texte.json', 'inhalt/studio.json', 'src/pages/studio.astro'],
   '/impressum/': ['inhalt/texte.json', 'inhalt/studio.json', 'src/pages/impressum.astro'],
   '/datenschutz/': ['inhalt/texte.json', 'src/pages/datenschutz.astro'],
 };
