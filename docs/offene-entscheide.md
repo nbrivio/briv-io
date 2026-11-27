@@ -16,7 +16,7 @@ Was vor dem Livegang entschieden oder geliefert sein muss. Erledigtes wandert na
 7. **Kapitelbilder in voller Grösse,** quer für grosse Schirme, hoch für Handys. Für Sie&Er Dessous, Apérozauber, a—real und Versed Academy fehlt das Motiv ganz.
 
 8a. **Weitere Statement-Karten** im Format von Deck 2.0, falls das Deck wachsen soll (bisher drei).
-8b. **Adressen für Gwunderfink, a—real und «Bewerbung neu gedacht»,** sobald es sie gibt.
+8b. **Adressen für a—real und «Bewerbung neu gedacht»,** sobald es sie gibt.
 
 ## Recht und Betrieb
 
