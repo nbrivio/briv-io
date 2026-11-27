@@ -17,7 +17,14 @@ const anzahl = String(karten.length).padStart(2, '0');
         {
           karten.map((k, i) => (
             <li class="karte">
-              <Image src={k.bild} alt={`${k.art === 'Satz' ? 'Karte' : `${k.art}karte`}: ${k.text}`} widths={[...new Set([320, 480, 720, 1086].map((b) => Math.min(b, k.bild.width)))]} sizes="(max-width: 700px) 62vw, 460px" quality={68} loading={i < 2 ? 'eager' : 'lazy'} fetchpriority={i === 0 ? 'high' : 'low'} decoding="async" />
+              {k.adresse ? (
+                <a href={k.adresse} target="_blank" rel="noopener" aria-label={`Website von ${k.name} öffnen, in neuem Fenster`}>
+                  <Image src={k.bild} alt={`${k.art === 'Satz' ? 'Karte' : `${k.art}karte`}: ${k.text}`} widths={[...new Set([320, 480, 720, 1086].map((b) => Math.min(b, k.bild.width)))]} sizes="(max-width: 700px) 62vw, 460px" quality={68} loading={i < 2 ? 'eager' : 'lazy'} fetchpriority={i === 0 ? 'high' : 'low'} decoding="async" />
+                  <span class="pfeil" aria-hidden="true">↗</span>
+                </a>
+              ) : (
+                <Image src={k.bild} alt={`${k.art === 'Satz' ? 'Karte' : `${k.art}karte`}: ${k.text}`} widths={[...new Set([320, 480, 720, 1086].map((b) => Math.min(b, k.bild.width)))]} sizes="(max-width: 700px) 62vw, 460px" quality={68} loading={i < 2 ? 'eager' : 'lazy'} fetchpriority={i === 0 ? 'high' : 'low'} decoding="async" />
+              )}
             </li>
           ))
         }

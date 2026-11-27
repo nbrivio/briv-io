@@ -1,15 +1,15 @@
 {
   "karten": [
     { "datei": "00-master-card", "art": "Titel", "text": "briv—io. The Curiosity Deck. Think big." },
-    { "datei": "P01-ryse", "art": "Projekt", "text": "ryse. Less paperwork." },
-    { "datei": "P02-mietblick", "art": "Projekt", "text": "mietblick. Know what you sign." },
-    { "datei": "P03-gwunderfink", "art": "Projekt", "text": "Gwunderfink. Adventure nearby." },
-    { "datei": "P04-sieunder", "art": "Projekt", "text": "sieunder. Confidence starts underneath." },
-    { "datei": "P05-aperozauber", "art": "Projekt", "text": "Apérozauber. Good things happen together." },
-    { "datei": "P06-a-real", "art": "Projekt", "text": "a—real. Look again." },
-    { "datei": "P07-bewerbung-neu-gedacht", "art": "Projekt", "text": "Bewerbung neu gedacht. More than paper." },
+    { "datei": "P01-ryse", "art": "Projekt", "text": "ryse. Less paperwork.", "adresse": "https://ryse-solutions.ch/" },
+    { "datei": "P02-mietblick", "art": "Projekt", "text": "mietblick. Know what you sign.", "adresse": "https://www.mietblick-app.ch/" },
     { "datei": "S01-built-from-curiosity", "art": "Satz", "text": "Built from curiosity. Stay in play." },
+    { "datei": "P03-gwunderfink", "art": "Projekt", "text": "Gwunderfink. Adventure nearby." },
+    { "datei": "P04-sieunder", "art": "Projekt", "text": "sieunder. Confidence starts underneath.", "adresse": "https://www.sieunder-dessous.ch/" },
     { "datei": "S02-be-curious-not-judgmental", "art": "Satz", "text": "Be curious, not judgmental. Look closer." },
-    { "datei": "S03-never-stop-playing", "art": "Satz", "text": "Never stop playing. The game goes on." }
+    { "datei": "P05-aperozauber", "art": "Projekt", "text": "Apérozauber. Good things happen together.", "adresse": "https://www.aperozauber.ch/" },
+    { "datei": "P06-a-real", "art": "Projekt", "text": "a—real. Look again." },
+    { "datei": "S03-never-stop-playing", "art": "Satz", "text": "Never stop playing. The game goes on." },
+    { "datei": "P07-bewerbung-neu-gedacht", "art": "Projekt", "text": "Bewerbung neu gedacht. More than paper." }
   ]
 }

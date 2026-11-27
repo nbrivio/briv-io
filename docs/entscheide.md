@@ -29,3 +29,5 @@ Regel mit Begründung. Neue Einträge unten anfügen, mit Datum.
 20. **Kein Fuss ohne Inhalt.** Die Anbieterzeile entfällt. Der Fuss erscheint erst, wenn eine Mail eingetragen ist oder die Rechtsseiten eingeschaltet sind.
 21. **Punktraster auf dem Tisch.** Ein feines Raster heller Punkte liegt über dem Grün, wie auf einer Spielmatte.
 22. **Deck 2.0: The Curiosity Deck.** Elf Karten in einheitlichem Format (1086 auf 1448): eine Titelkarte, sieben Projekte, drei Statements. Sie ersetzen die Studien der ersten Fassung; das Deck heisst neu «The Curiosity Deck». Im Repository liegen die Karten als WebP in voller Grösse, die Vorlagen bleiben lokal. Punkt 18 ist damit erledigt.
+23. **Projektkarten führen zur Website, sofern es eine gibt.** Verlinkt sind ryse, mietblick, sieunder und Apérozauber; die Adressen sind geprüft. Gwunderfink, a—real und «Bewerbung neu gedacht» bleiben ohne Verweis, bis eine Adresse bekannt ist. Ein gelber Knopf an der Ecke zeigt, welche Karten antippbar sind. Die Adresse steht als `adresse` in `inhalt/karten.json`.
+24. **Projekte und Statements sind gemischt.** Nach je zwei Projekten folgt ein Statement.

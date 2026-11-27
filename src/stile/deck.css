@@ -30,6 +30,52 @@
     -webkit-user-drag: none;
   }
 
+  /* Karten mit Website sind Verweise. Ein kleiner gelber Knopf an der Ecke zeigt es an. */
+  .karte a {
+    position: relative;
+    display: block;
+    border-radius: 5.5%/4.1%;
+  }
+  .karte a:focus-visible {
+    outline: 3px solid var(--bi-gelb);
+    outline-offset: 5px;
+  }
+  .karte img {
+    transition: transform 250ms var(--kurve);
+  }
+  .pfeil {
+    position: absolute;
+    top: -3.5%;
+    right: -4.5%;
+    display: grid;
+    place-items: center;
+    width: 14%;
+    aspect-ratio: 1;
+    border: 2px solid var(--bi-umriss);
+    border-radius: 50%;
+    background: var(--bi-gelb);
+    color: var(--bi-umriss);
+    /* Der Pfeil wächst mit der Karte: Ihre Höhe setzt das Skript, ohne Skript gilt das Raster. */
+    font-size: calc(var(--karte-h, 13rem) * 0.058);
+    font-weight: 700;
+    line-height: 1;
+    transition: transform 250ms var(--kurve);
+  }
+  @media (hover: hover) {
+    .karte a:hover img {
+      transform: translateY(-1.5%);
+    }
+    .karte a:hover .pfeil {
+      transform: translateY(-12%) scale(1.12);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .karte img,
+    .pfeil {
+      transition: none;
+    }
+  }
+
   .leiste {
     display: flex;
     align-items: baseline;
@@ -90,6 +136,9 @@
     height: var(--karte-h, 60svh);
     will-change: transform;
     backface-visibility: hidden;
+  }
+  .gelegt .karte a {
+    height: 100%;
   }
   .gelegt .karte img {
     width: auto;

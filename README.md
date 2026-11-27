@@ -20,7 +20,7 @@ Alles, was sich ändert, liegt unter `inhalt/`, getrennt vom Code. Eine Änderun
 
 | Datei | Inhalt |
 | --- | --- |
-| `inhalt/karten.json` | Die Karten des Decks auf der Startseite, in der Reihenfolge, in der sie beim Scrollen kommen. `text` ist die Beschriftung der Karte und dient als Alt-Text. Die Bilder liegen unter `src/assets/bilder/karten/` |
+| `inhalt/karten.json` | Die Karten des Decks auf der Startseite, in der Reihenfolge, in der sie beim Scrollen kommen. `text` ist die Beschriftung der Karte und dient als Alt-Text, `adresse` (optional) die Website des Projekts. Die Bilder liegen unter `src/assets/bilder/karten/` |
 | `inhalt/projekte.json` | Die Projekte in ihrer Reihenfolge. Mit `bereit: true` hat ein Kapitel Titel, Zweck, Frage, Beschrieb und eine eigene Seite. Mit `bereit: false` ist es angekündigt und steht nur mit Namen da |
 | `inhalt/texte.json` | Kopfangaben der Startseite, Impressum und Datenschutz |
 | `inhalt/studio.json` | Name, Person, Adresse und Mail. Kopf, Fuss, Impressum und strukturierte Daten lesen hier |
