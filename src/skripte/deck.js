@@ -44,6 +44,12 @@ if (deck) {
   let wirbel = 1;
   let wirbelBeginn = 0;
 
+  // Wenden: Eine gewendete Karte kommt in die Mitte, damit ihre Rückseite lesbar ist.
+  const hub = karten.map(() => 0);
+  const hubZiel = karten.map(() => 0);
+  let wendeStand = 0;
+  let hubMass = 1;
+
   // Zugabe: die Karte, die erst kommt, wenn jemand am Ende weiterscrollt.
   let versuche = 0;
   let letzterVersuch = 0;
@@ -58,6 +64,8 @@ if (deck) {
     const gross = Math.min(hoehe * 0.76, (breite * 0.82) / FORMAT, 780);
     deck.style.setProperty('--karte-h', `${gross}px`);
     deck.style.height = `${hoehe * (1 + anzahl * WEG)}px`;
+    // Gewendet darf die Karte grösser sein als in der Mitte: so gross, wie der Schirm sie fasst.
+    hubMass = Math.max(1, Math.min((hoehe * 0.9) / gross, (breite * 0.92) / (gross * FORMAT)));
 
     // Plätze auf dem Tisch: das Raster, in dem die Karten am grössten liegen.
     const rand = Math.max(16, breite * 0.04);
@@ -120,16 +128,25 @@ if (deck) {
       };
       // 0 bis 1: Flug in die Mitte. 1 bis 2: Weg an den Platz. Die erste Karte liegt schon in der Mitte.
       const t = Math.min(2, Math.max(0, jetzt - i + 1));
+      let pose;
       if (t <= 1) {
         const e = sanftAus(t);
-        karte.style.transform = lage(mische(f.vonX, 0, e), mische(hoehe * 0.95, 0, e), mische(f.vonDreh, f.mitteDreh, e), 1);
+        pose = [mische(f.vonX, 0, e), mische(hoehe * 0.95, 0, e), mische(f.vonDreh, f.mitteDreh, e), 1];
       } else {
         const e = sanft(t - 1);
-        karte.style.transform = lage(mische(0, platz.x, e), mische(0, platz.y, e), mische(f.mitteDreh, platz.dreh, e), mische(1, platz.mass, e));
+        pose = [mische(0, platz.x, e), mische(0, platz.y, e), mische(f.mitteDreh, platz.dreh, e), mische(1, platz.mass, e)];
       }
+      // Eine gewendete Karte hebt sich von ihrem Platz gerade und gross in die Mitte.
+      if (hub[i] > 0) {
+        const e = sanft(hub[i]);
+        pose = [mische(pose[0], 0, e), mische(pose[1], 0, e), mische(pose[2], 0, e), mische(pose[3], hubMass, e)];
+      }
+      karte.style.transform = lage(...pose);
       karte.style.visibility = t === 0 ? 'hidden' : 'visible';
-      // Beim Mischen liegen die Karten nach ihrem neuen Platz übereinander, sonst nach ihrer Reihenfolge.
-      karte.style.zIndex = String(i + 1);
+      // Eine Karte im Anflug lässt sich noch nicht bedienen. Sonst läge der Fokus auf etwas, das erst halb im Bild ist.
+      const fern = t < 0.6;
+      if (karte.inert !== fern) karte.inert = fern;
+      karte.style.zIndex = String(hub[i] > 0 ? 95 : i + 1);
     });
     if (zugabe && zugabeDa) {
       const e = schwung(zugabeStand);
@@ -142,6 +159,8 @@ if (deck) {
   function lies() {
     const weg = Math.max(0, -deck.getBoundingClientRect().top);
     ziel = Math.min(anzahl, weg / (hoehe * WEG));
+    // Wer scrollt, legt eine gewendete Karte zurück.
+    if (hubZiel.some((z) => z === 1) && Math.abs(ziel - wendeStand) > 0.12) legeZurueck();
     // Wer zurückscrollt, legt die Zugabe wieder weg.
     if (zugabeDa && ziel < anzahl - 0.4) raeumeZugabe();
   }
@@ -160,6 +179,15 @@ if (deck) {
       wirbel = Math.min(1, (zeit - wirbelBeginn) / 900);
       weiter = true;
     }
+    hub.forEach((wert, i) => {
+      const fehlt = hubZiel[i] - wert;
+      if (ruhig.matches || Math.abs(fehlt) < 0.002) {
+        hub[i] = hubZiel[i];
+      } else {
+        hub[i] = wert + fehlt * 0.14;
+        weiter = true;
+      }
+    });
     if (zugabeDa && zugabeStand < 1) {
       zugabeStand = Math.min(1, (zeit - zugabeBeginn) / 900);
       weiter = true;
@@ -177,9 +205,58 @@ if (deck) {
     laufe();
   }
 
+  // Wenden: Die Karte dreht sich und zeigt, was hinter dem Projekt steckt. Ein zweiter Klick legt sie zurück.
+  const seiten = (karte) => [karte.querySelector('.vorn'), karte.querySelector('.hinten')];
+
+  function legeZurueck(fokus = false) {
+    karten.forEach((karte, i) => {
+      if (hubZiel[i] !== 1) return;
+      const [vorn, hinten] = seiten(karte);
+      hubZiel[i] = 0;
+      karte.classList.remove('gewendet');
+      vorn.setAttribute('aria-expanded', 'false');
+      hinten.inert = true;
+      if (fokus) vorn.focus({ preventScroll: true });
+    });
+    laufe();
+  }
+
+  function wende(i) {
+    const karte = karten[i];
+    const [vorn, hinten] = seiten(karte);
+    const warOffen = hubZiel[i] === 1;
+    legeZurueck();
+    if (warOffen) return;
+    hubZiel[i] = 1;
+    wendeStand = ziel;
+    karte.classList.add('gewendet');
+    vorn.setAttribute('aria-expanded', 'true');
+    hinten.inert = false;
+    hinten.querySelector('a, button').focus({ preventScroll: true });
+    laufe();
+  }
+
+  karten.forEach((karte, i) => {
+    const [vorn, hinten] = seiten(karte);
+    if (!vorn || !hinten) return;
+    hinten.inert = true;
+    vorn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      wende(i);
+    });
+    // Ein Klick irgendwo auf die Rückseite legt die Karte zurück, ausser auf den Verweis zur Website.
+    hinten.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (!e.target.closest('a')) legeZurueck(true);
+    });
+  });
+  tisch.addEventListener('click', () => legeZurueck());
+  addEventListener('keydown', (e) => e.key === 'Escape' && legeZurueck(true));
+
   // Mischen: Alle Karten heben kurz ab und gleiten im Bogen auf neue Plätze. Gedreht wird dabei nicht.
   function mischeDeck() {
     if (wirbel < 1) return;
+    legeZurueck();
     vorher = ordnung.slice();
     do {
       for (let i = ordnung.length - 1; i > 0; i -= 1) {
@@ -232,7 +309,8 @@ if (deck) {
   let beruehrung = 0;
   addEventListener('touchstart', (e) => (beruehrung = e.changedTouches[0].clientY), { passive: true });
   addEventListener('touchend', (e) => beruehrung - e.changedTouches[0].clientY > 40 && versuch(), { passive: true });
-  addEventListener('keydown', (e) => ['ArrowDown', 'PageDown', 'End', ' '].includes(e.key) && !e.target.closest?.('a, button') && versuch());
+  // Die Leertaste zählt nur, wenn sie nicht gerade einen Knopf oder Verweis auslöst.
+  addEventListener('keydown', (e) => ['ArrowDown', 'PageDown', 'End', ' '].includes(e.key) && !(e.key === ' ' && e.target.closest?.('a, button')) && versuch());
 
   // Das Zeichen: Es neigt sich dem Zeiger zu. Ein Klick lässt die Schwalben auffliegen und mischt die Karten.
   if (marke && zeichen) {

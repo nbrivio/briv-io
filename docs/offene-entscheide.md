@@ -18,6 +18,7 @@ Was vor dem Livegang entschieden oder geliefert sein muss. Erledigtes wandert na
 8a. **Weitere Statement-Karten** im Format von Deck 2.0, falls das Deck wachsen soll (bisher drei).
 8b. **Adressen für a—real und «Bewerbung neu gedacht»,** sobald es sie gibt.
 
+8d. **Rückseiten gegenlesen und freigeben** (`rueckseitenFreigegeben` in `inhalt/karten.json`). Für a—real und «Bewerbung neu gedacht» fehlen die Angaben ganz; diese beiden Karten lassen sich darum noch nicht wenden.
 8c. **Zugabe als gezeichnete Karte** im Format von Deck 2.0. Bis dahin ist sie in Schrift gesetzt.
 
 ## Recht und Betrieb

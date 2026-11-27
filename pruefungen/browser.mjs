@@ -124,9 +124,36 @@ for (const [name, width, height] of [breiten[0], breiten[1], breiten[3]]) {
     }).length,
   );
   if (draussen > 0) b.melde(ort, `${draussen} Karten liegen am Ende nicht ganz auf dem Tisch`);
+  // Wenden: Ein Klick dreht eine Projektkarte und holt sie in die Mitte, Escape legt sie zurück.
+  const erste = fenster.locator('.karte .vorn').first();
+  await erste.click();
+  await fenster.waitForTimeout(300);
+  const offen = await fenster.evaluate(() => {
+    const karte = document.querySelector('.karte.gewendet');
+    if (!karte) return null;
+    const r = karte.getBoundingClientRect();
+    const verweis = karte.querySelector('.hinten a');
+    return { mitte: Math.abs(r.left + r.width / 2 - innerWidth / 2) < 4, im: r.top >= -2 && r.bottom <= innerHeight + 2, fokus: karte.querySelector('.hinten').contains(document.activeElement), verweis: Boolean(verweis) };
+  });
+  if (!offen) b.melde(ort, 'ein Klick wendet die Karte nicht');
+  else {
+    if (!offen.mitte || !offen.im) b.melde(ort, 'die gewendete Karte liegt nicht ganz in der Mitte des Schirms');
+    if (!offen.fokus) b.melde(ort, 'der Fokus liegt nach dem Wenden nicht auf der Rückseite');
+    const zuViel = await fenster.evaluate(() => {
+      const h = document.querySelector('.karte.gewendet .hinten');
+      const knoepfe = h.querySelector('.h-knoepfe').getBoundingClientRect();
+      const letzter = [...h.querySelectorAll('.h-was, .h-gemacht, .h-stand')].at(-1).getBoundingClientRect();
+      return letzter.bottom > knoepfe.top + 1;
+    });
+    if (zuViel) b.melde(ort, 'der Text der Rückseite läuft in die Knöpfe');
+  }
+  await fenster.keyboard.press('Escape');
+  await fenster.waitForTimeout(200);
+  if ((await fenster.locator('.karte.gewendet').count()) > 0) b.melde(ort, 'Escape legt die gewendete Karte nicht zurück');
   // Zugabe: Wer am Ende dreimal weiterscrollt, bekommt noch eine Karte. Vorher ist sie nicht da.
   if (await fenster.locator('.zugabe').isVisible()) b.melde(ort, 'die Zugabe liegt schon vor dem Weiterscrollen da');
-  for (let i = 0; i < 3; i += 1) {
+  // Der erste Druck bringt die Seite sicher ans Ende, die nächsten drei zählen als Versuche.
+  for (let i = 0; i < 4; i += 1) {
     await fenster.keyboard.press('End');
     await fenster.waitForTimeout(500);
   }
