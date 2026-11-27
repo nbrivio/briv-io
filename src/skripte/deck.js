@@ -37,7 +37,9 @@ if (deck) {
 
     // Plätze auf dem Tisch: das Raster, in dem die Karten am grössten liegen.
     const rand = Math.max(16, breite * 0.04);
-    const oben = hoehe * 0.11;
+    // Oben bleibt Platz für das Zeichen.
+    const kopf = document.querySelector('.kopf .zeichen');
+    const oben = Math.max(hoehe * 0.11, (kopf?.getBoundingClientRect().bottom ?? 0) + 14);
     const unten = hoehe * 0.1;
     let beste = { h: 0, spalten: 1 };
     for (let spalten = 1; spalten <= anzahl; spalten += 1) {

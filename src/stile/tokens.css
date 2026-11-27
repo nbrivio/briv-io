@@ -51,7 +51,7 @@
 
   /* Ein Rand für alles: Marke, Titel und Schild teilen dieselbe Kante. */
   --rand: clamp(20px, 5vw, 72px);
-  --kopf-h: 4.75rem;
+  --kopf-h: 6.25rem;
 
   --kurve: cubic-bezier(0.2, 0.7, 0.2, 1);
 }

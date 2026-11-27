@@ -116,25 +116,7 @@
     top: 0.5rem;
   }
 
-  /* Die Wortmarke als Satz: «briv», das goldene Band, «io». Die gezeichnete Marke ersetzt sie später. */
-  .marke {
-    display: inline-flex;
-    align-items: center;
-    font-family: var(--bi-font-titel);
-    font-weight: 600;
-    font-size: 1.75rem;
-    letter-spacing: -0.045em;
-    line-height: 1;
-  }
-  .marke .band {
-    display: inline-block;
-    width: 0.95em;
-    height: 0.085em;
-    margin: 0.12em 0.07em 0;
-    background: var(--bi-gold);
-  }
-
-  /* Kopf: Marke und Claim. Steht immer auf Tinte. */
+  /* Kopf: das Zeichen. Sein Umriss ist durchsichtig und nimmt die Farbe der Fläche darunter an. */
   .kopf {
     display: flex;
     align-items: flex-start;
@@ -153,14 +135,11 @@
     pointer-events: auto;
   }
   .kopf-marke {
-    display: grid;
-    gap: 0.2rem;
+    display: block;
     min-height: 44px;
-    text-decoration: none;
   }
-  .claim {
-    font-size: 0.75rem;
-    letter-spacing: 0.03em;
+  .kopf-marke .zeichen {
+    width: clamp(6.5rem, 9vw, 8.25rem);
   }
   .etikett {
     font-family: var(--bi-font-text);
@@ -206,7 +185,7 @@
     display: flex;
     flex-wrap: wrap;
     align-items: baseline;
-    justify-content: space-between;
+    justify-content: flex-end;
     gap: var(--a2) var(--a4);
     padding: var(--a4) var(--rand) var(--a3);
     border-top: 1px solid var(--bi-linie);
@@ -223,10 +202,6 @@
     align-items: center;
     min-height: 44px;
   }
-  .fuss .anbieter {
-    color: var(--bi-nebel);
-  }
-
   @media (hover: hover) {
     .kopf a:hover,
     .fuss a:hover {

@@ -56,7 +56,8 @@ for (const datei of seiten) {
   ebenen.forEach((e, i) => {
     if (i > 0 && e > ebenen[i - 1] + 1) b.melde(ort, `Überschrift springt von h${ebenen[i - 1]} auf h${e}`);
   });
-  for (const landmarke of ['header', 'main', 'footer']) {
+  // Der Fuss ist kein Pflichtteil: Er erscheint erst, wenn es Mail oder Rechtsseiten zu verweisen gibt.
+  for (const landmarke of ['header', 'main']) {
     if (!new RegExp(`<${landmarke}[\\s>]`).test(rumpf)) b.melde(ort, `<${landmarke}> fehlt`);
   }
 

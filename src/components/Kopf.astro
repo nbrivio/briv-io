@@ -1,5 +1,6 @@
 ---
-import Marke from './Marke.astro';
+import { Image } from 'astro:assets';
+import zeichen from '../assets/marke/briv-io-zeichen.png';
 import { studio } from '../inhalt/studio.js';
 import { pfad } from '../inhalt/pfad.js';
 
@@ -8,7 +9,6 @@ const { fest = false } = Astro.props;
 
 <header class:list={['kopf', { fest }]}>
   <a class="kopf-marke" href={pfad('/')}>
-    <Marke />
-    <span class="claim" lang="en">{studio.claim}.</span>
+    <Image class="zeichen" src={zeichen} alt={`${studio.name}, zur Startseite`} widths={[200, 400]} sizes="(max-width: 700px) 104px, 132px" loading="eager" />
   </a>
 </header>

@@ -15,7 +15,7 @@
 
   /* Ohne Skript liegen alle Karten als ruhiges Raster da. */
   .tisch {
-    padding: calc(var(--kopf-h) + var(--a3)) var(--rand) var(--a5);
+    padding: calc(var(--kopf-h) + var(--a4)) var(--rand) var(--a5);
   }
   .stapel {
     display: grid;
@@ -71,7 +71,9 @@
     height: 100svh;
     padding: 0;
     overflow: clip;
+    /* Ein feines Punktraster wie auf einer Spielmatte, darunter das Licht in der Mitte und der dunklere Rand. */
     background:
+      radial-gradient(circle, rgb(244 235 213 / 0.11) 1px, transparent 1.6px) 0 0 / 22px 22px,
       radial-gradient(ellipse at 50% 42%, rgb(255 179 25 / 0.1), transparent 55%),
       radial-gradient(ellipse at 50% 50%, transparent 55%, rgb(11 37 28 / 0.55)),
       var(--bi-gruen);
@@ -126,18 +128,8 @@
     }
   }
 
-  /* Der Kopf liegt über dem Tisch und nimmt dessen Farben an. */
-  .kopf.fest {
-    color: #f4ebd5;
-  }
-  .kopf.fest .marke .band {
-    background: var(--bi-gelb);
-  }
   body:has(.deck) .fuss {
     border-top-color: rgb(244 235 213 / 0.18);
-    color: #f4ebd5;
-  }
-  body:has(.deck) .fuss .anbieter {
     color: #f4ebd5;
   }
 }
