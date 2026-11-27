@@ -2,17 +2,27 @@
 // Die neue Karte fliegt in die Mitte, die vorherige gleitet an ihren Platz auf dem Tisch.
 // Gescrollt wird nativ. Das Skript liest nur die Lage und bewegt die Karten weich nach.
 // Ohne dieses Skript liegen alle Karten als Raster da.
+
+// Für alle, die nachschauen.
+console.log('%cCurious? Good.', 'font: italic 20px Georgia, serif; color: #ffb319; background: #103f32; padding: 10px 16px; border-radius: 4px');
+console.log('Stay curious. Build things. Repeat.');
+
 const deck = document.querySelector('.deck');
 
 if (deck) {
   const tisch = deck.querySelector('.tisch');
   const karten = [...deck.querySelectorAll('.karte')];
+  const zugabe = deck.querySelector('.zugabe');
   const stand = deck.querySelector('[data-stand]');
+  const marke = document.querySelector('.kopf-marke');
+  const zeichen = marke?.querySelector('.zeichen');
   const ruhig = matchMedia('(prefers-reduced-motion: reduce)');
   const anzahl = karten.length;
   const FORMAT = 1086 / 1448;
   // So viel Scrollweg, gemessen in Schirmhöhen, braucht eine Karte.
   const WEG = 0.7;
+  // So oft muss am Ende weitergescrollt werden, bis die Zugabe kommt.
+  const VERSUCHE = 3;
 
   // Feste Zufallswerte je Karte, damit der Tisch bei jedem Besuch gleich aussieht.
   const zufall = (i, salz) => {
@@ -23,9 +33,24 @@ if (deck) {
   let breite = 0;
   let hoehe = 0;
   let plaetze = [];
+  let fluege = [];
   let ziel = 0;
   let jetzt = 0;
   let bild = 0;
+
+  // Mischen: welche Karte auf welchem Platz liegt, vorher und nachher.
+  let ordnung = karten.map((_, i) => i);
+  let vorher = ordnung.slice();
+  let drall = karten.map(() => 0);
+  let wirbel = 1;
+  let wirbelBeginn = 0;
+
+  // Zugabe: die Karte, die erst kommt, wenn jemand am Ende weiterscrollt.
+  let versuche = 0;
+  let letzterVersuch = 0;
+  let zugabeDa = false;
+  let zugabeStand = 0;
+  let zugabeBeginn = 0;
 
   function vermesse() {
     breite = tisch.clientWidth;
@@ -38,8 +63,7 @@ if (deck) {
     // Plätze auf dem Tisch: das Raster, in dem die Karten am grössten liegen.
     const rand = Math.max(16, breite * 0.04);
     // Oben bleibt Platz für das Zeichen.
-    const kopf = document.querySelector('.kopf .zeichen');
-    const oben = Math.max(hoehe * 0.11, (kopf?.getBoundingClientRect().bottom ?? 0) + 14);
+    const oben = Math.max(hoehe * 0.11, (zeichen?.getBoundingClientRect().bottom ?? 0) + 14);
     const unten = hoehe * 0.1;
     let beste = { h: 0, spalten: 1 };
     for (let spalten = 1; spalten <= anzahl; spalten += 1) {
@@ -61,12 +85,14 @@ if (deck) {
         y: oben + feldH * (zeile + 0.5) - hoehe / 2 + (zufall(i, 2) - 0.5) * feldH * 0.08,
         dreh: (zufall(i, 3) - 0.5) * 9,
         mass: beste.h / gross,
-        // Woher die Karte kommt und wie sie in der Mitte liegt.
-        vonX: (zufall(i, 4) - 0.5) * breite * 0.5,
-        vonDreh: (zufall(i, 5) - 0.5) * 50,
-        mitteDreh: (zufall(i, 6) - 0.5) * 5,
       };
     });
+    // Woher jede Karte kommt und wie sie in der Mitte liegt.
+    fluege = karten.map((_, i) => ({
+      vonX: (zufall(i, 4) - 0.5) * breite * 0.5,
+      vonDreh: (zufall(i, 5) - 0.5) * 50,
+      mitteDreh: (zufall(i, 6) - 0.5) * 5,
+    }));
     lies();
     jetzt = ziel;
     zeichne();
@@ -75,62 +101,195 @@ if (deck) {
   const mische = (a, b, t) => a + (b - a) * t;
   const sanftAus = (t) => 1 - (1 - t) ** 3;
   const sanft = (t) => (t < 0.5 ? 4 * t * t * t : 1 - (-2 * t + 2) ** 3 / 2);
+  // Schwingt am Ende leicht über das Ziel hinaus, wie eine hingeworfene Karte.
+  const schwung = (t) => 1 + 2.2 * (t - 1) ** 3 + 1.2 * (t - 1) ** 2;
+  const lage = (x, y, dreh, mass) => `translate3d(calc(-50% + ${x.toFixed(1)}px), calc(-50% + ${y.toFixed(1)}px), 0) rotate(${dreh.toFixed(2)}deg) scale(${mass.toFixed(4)})`;
 
   function zeichne() {
+    const w = sanft(wirbel);
+    const bogen = Math.sin(Math.PI * wirbel);
     karten.forEach((karte, i) => {
-      const p = plaetze[i];
+      const f = fluege[i];
+      // Der Platz der Karte. Beim Mischen wandert sie im Bogen vom alten zum neuen.
+      const a = plaetze[vorher[i]];
+      const b = plaetze[ordnung[i]];
+      const platz = {
+        x: mische(a.x, b.x, w),
+        y: mische(a.y, b.y, w) - bogen * hoehe * 0.05,
+        dreh: mische(a.dreh, b.dreh, w) + drall[i] * w,
+        mass: mische(a.mass, b.mass, w) * (1 + bogen * 0.14),
+      };
       // 0 bis 1: Flug in die Mitte. 1 bis 2: Weg an den Platz. Die erste Karte liegt schon in der Mitte.
       const t = Math.min(2, Math.max(0, jetzt - i + 1));
-      let x;
-      let y;
-      let dreh;
-      let mass;
       if (t <= 1) {
         const e = sanftAus(t);
-        x = mische(p.vonX, 0, e);
-        y = mische(hoehe * 0.95, 0, e);
-        dreh = mische(p.vonDreh, p.mitteDreh, e);
-        mass = 1;
+        karte.style.transform = lage(mische(f.vonX, 0, e), mische(hoehe * 0.95, 0, e), mische(f.vonDreh, f.mitteDreh, e), 1);
       } else {
         const e = sanft(t - 1);
-        x = mische(0, p.x, e);
-        y = mische(0, p.y, e);
-        dreh = mische(p.mitteDreh, p.dreh, e);
-        mass = mische(1, p.mass, e);
+        karte.style.transform = lage(mische(0, platz.x, e), mische(0, platz.y, e), mische(f.mitteDreh, platz.dreh, e), mische(1, platz.mass, e));
       }
-      karte.style.transform = `translate3d(calc(-50% + ${x.toFixed(1)}px), calc(-50% + ${y.toFixed(1)}px), 0) rotate(${dreh.toFixed(2)}deg) scale(${mass.toFixed(4)})`;
       karte.style.visibility = t === 0 ? 'hidden' : 'visible';
+      // Beim Mischen liegen die Karten nach ihrem neuen Platz übereinander, sonst nach ihrer Reihenfolge.
       karte.style.zIndex = String(i + 1);
     });
-    if (stand) stand.textContent = String(Math.min(anzahl, Math.max(1, Math.round(jetzt) + 1))).padStart(2, '0');
+    if (zugabe && zugabeDa) {
+      const e = schwung(zugabeStand);
+      zugabe.style.transform = lage(mische(breite * 0.2, 0, e), mische(hoehe * 0.95, 0, e), mische(-24, 3.5, e), 1);
+    }
+    if (stand) stand.textContent = String(zugabeDa ? anzahl + 1 : Math.min(anzahl, Math.max(1, Math.round(jetzt) + 1))).padStart(2, '0');
     tisch.classList.toggle('unterwegs', jetzt > 0.15);
   }
 
   function lies() {
     const weg = Math.max(0, -deck.getBoundingClientRect().top);
     ziel = Math.min(anzahl, weg / (hoehe * WEG));
+    // Wer zurückscrollt, legt die Zugabe wieder weg.
+    if (zugabeDa && ziel < anzahl - 0.4) raeumeZugabe();
   }
 
-  function schritt() {
+  function schritt(zeit) {
+    let weiter = false;
     // Die Karten folgen dem Scrollen mit kleiner Verzögerung. Das macht die Bewegung weich.
     const rest = ziel - jetzt;
     if (ruhig.matches || Math.abs(rest) < 0.0008) {
       jetzt = ziel;
-      bild = 0;
     } else {
       jetzt += rest * 0.11;
-      bild = requestAnimationFrame(schritt);
+      weiter = true;
+    }
+    if (wirbel < 1) {
+      wirbel = Math.min(1, (zeit - wirbelBeginn) / 1100);
+      weiter = true;
+    }
+    if (zugabeDa && zugabeStand < 1) {
+      zugabeStand = Math.min(1, (zeit - zugabeBeginn) / 900);
+      weiter = true;
     }
     zeichne();
+    bild = weiter ? requestAnimationFrame(schritt) : 0;
   }
+
+  const laufe = () => {
+    if (!bild) bild = requestAnimationFrame(schritt);
+  };
 
   function folge() {
     lies();
-    if (!bild) bild = requestAnimationFrame(schritt);
+    laufe();
+  }
+
+  // Mischen: Alle Karten wirbeln einmal auf und landen auf neuen Plätzen.
+  function mischeDeck() {
+    if (wirbel < 1) return;
+    vorher = ordnung.slice();
+    do {
+      for (let i = ordnung.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [ordnung[i], ordnung[j]] = [ordnung[j], ordnung[i]];
+      }
+    } while (anzahl > 2 && ordnung.every((platz, i) => platz === vorher[i]));
+    if (ruhig.matches) {
+      drall = karten.map(() => 0);
+      wirbel = 1;
+      zeichne();
+      return;
+    }
+    drall = karten.map(() => (Math.random() < 0.5 ? -360 : 360));
+    wirbel = 0;
+    wirbelBeginn = performance.now();
+    laufe();
+  }
+
+  // Zugabe: Am Ende kommt nichts mehr. Wer trotzdem weiterscrollt, bekommt noch eine Karte.
+  const amEnde = () => ziel >= anzahl - 0.01 && scrollY + innerHeight >= document.documentElement.scrollHeight - 2;
+
+  function versuch() {
+    if (!zugabe || zugabeDa || !amEnde()) return;
+    const zeit = performance.now();
+    // Ein Schwung am Trackpad sendet viele Ereignisse. Gezählt wird erst wieder nach einer Pause.
+    if (zeit - letzterVersuch < 420) {
+      letzterVersuch = zeit;
+      return;
+    }
+    letzterVersuch = zeit;
+    versuche += 1;
+    if (versuche >= VERSUCHE) zeigeZugabe();
+  }
+
+  function zeigeZugabe() {
+    zugabeDa = true;
+    zugabe.hidden = false;
+    zugabeStand = ruhig.matches ? 1 : 0;
+    zugabeBeginn = performance.now();
+    zeichne();
+    laufe();
+  }
+
+  function raeumeZugabe() {
+    zugabeDa = false;
+    zugabe.hidden = true;
+    versuche = 0;
+  }
+
+  addEventListener('wheel', (e) => e.deltaY > 0 && versuch(), { passive: true });
+  let beruehrung = 0;
+  addEventListener('touchstart', (e) => (beruehrung = e.changedTouches[0].clientY), { passive: true });
+  addEventListener('touchend', (e) => beruehrung - e.changedTouches[0].clientY > 40 && versuch(), { passive: true });
+  addEventListener('keydown', (e) => ['ArrowDown', 'PageDown', 'End', ' '].includes(e.key) && !e.target.closest?.('a, button') && versuch());
+
+  // Das Zeichen: Es neigt sich dem Zeiger zu. Ein Klick lässt die Schwalben auffliegen und mischt die Karten.
+  if (marke && zeichen) {
+    marke.setAttribute('role', 'button');
+    marke.setAttribute('aria-label', 'Karten neu mischen');
+    const flattere = () => {
+      if (ruhig.matches) return;
+      zeichen.classList.remove('flattert');
+      // Der erzwungene Neuaufbau lässt die Bewegung auch beim zweiten Klick von vorn beginnen.
+      void zeichen.offsetWidth;
+      zeichen.classList.add('flattert');
+    };
+    marke.addEventListener('click', (e) => {
+      e.preventDefault();
+      flattere();
+      mischeDeck();
+    });
+    marke.addEventListener('keydown', (e) => {
+      if (e.key !== ' ') return;
+      e.preventDefault();
+      marke.click();
+    });
+
+    let blick = 0;
+    addEventListener('pointermove', (e) => {
+      if (e.pointerType !== 'mouse' || ruhig.matches || blick) return;
+      blick = requestAnimationFrame(() => {
+        blick = 0;
+        const r = zeichen.getBoundingClientRect();
+        const dx = (e.clientX - (r.left + r.width / 2)) / innerWidth;
+        const dy = (e.clientY - (r.top + r.height / 2)) / innerHeight;
+        zeichen.style.setProperty('--blick-x', `${(dx * 9).toFixed(2)}px`);
+        zeichen.style.setProperty('--blick-y', `${(dy * 7).toFixed(2)}px`);
+        zeichen.style.setProperty('--blick-dreh', `${(dx * 7).toFixed(2)}deg`);
+      });
+    }, { passive: true });
+
+    // Schütteln mischt auch. Wo das Gerät dafür erst um Erlaubnis fragen müsste, bleibt es beim Antippen.
+    if (typeof DeviceMotionEvent !== 'undefined' && typeof DeviceMotionEvent.requestPermission !== 'function') {
+      let zuletzt = 0;
+      addEventListener('devicemotion', (e) => {
+        const b = e.acceleration;
+        if (!b || performance.now() - zuletzt < 1600) return;
+        if (Math.hypot(b.x ?? 0, b.y ?? 0, b.z ?? 0) > 18) {
+          zuletzt = performance.now();
+          flattere();
+          mischeDeck();
+        }
+      });
+    }
   }
 
   // Die erste Karte lädt zuerst. Ist die Seite da, folgen die übrigen, bevor sie an der Reihe sind.
-  const ladeAlle = () => deck.querySelectorAll('img[loading="lazy"]').forEach((bild) => (bild.loading = 'eager'));
+  const ladeAlle = () => deck.querySelectorAll('img[loading="lazy"]').forEach((b) => (b.loading = 'eager'));
   if (document.readyState === 'complete') ladeAlle();
   else addEventListener('load', ladeAlle, { once: true });
 

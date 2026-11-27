@@ -124,6 +124,19 @@ for (const [name, width, height] of [breiten[0], breiten[1], breiten[3]]) {
     }).length,
   );
   if (draussen > 0) b.melde(ort, `${draussen} Karten liegen am Ende nicht ganz auf dem Tisch`);
+  // Zugabe: Wer am Ende dreimal weiterscrollt, bekommt noch eine Karte. Vorher ist sie nicht da.
+  if (await fenster.locator('.zugabe').isVisible()) b.melde(ort, 'die Zugabe liegt schon vor dem Weiterscrollen da');
+  for (let i = 0; i < 3; i += 1) {
+    await fenster.keyboard.press('End');
+    await fenster.waitForTimeout(500);
+  }
+  if (!(await fenster.locator('.zugabe').isVisible())) b.melde(ort, 'die Zugabe kommt nach dreimal Weiterscrollen nicht');
+  // Mischen: Ein Klick auf das Zeichen legt die Karten neu aus, und keine fällt vom Tisch.
+  const davor = await fenster.evaluate(() => [...document.querySelectorAll('.karte')].map((k) => k.style.transform).join('|'));
+  await fenster.locator('.kopf-marke').click();
+  await fenster.waitForTimeout(400);
+  const danach = await fenster.evaluate(() => [...document.querySelectorAll('.karte')].map((k) => k.style.transform).join('|'));
+  if (davor === danach) b.melde(ort, 'ein Klick auf das Zeichen mischt die Karten nicht');
   await kontext.close();
 }
 

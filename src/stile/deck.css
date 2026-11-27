@@ -146,6 +146,90 @@
     height: 100%;
     box-shadow: 0 1.5rem 3.5rem rgb(11 37 28 / 0.55);
   }
+  /* Die Zugabe: eine gesetzte Karte in Gelb, bis es ein gezeichnetes Motiv gibt. */
+  .zugabe {
+    display: none;
+  }
+  .gelegt .zugabe:not([hidden]) {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    z-index: 90;
+    display: grid;
+    grid-template-rows: auto auto 1fr auto auto;
+    justify-items: center;
+    align-items: center;
+    gap: 0.9em;
+    height: var(--karte-h);
+    aspect-ratio: 1086 / 1448;
+    padding: 2.2em 1.6em 2em;
+    border: 0.55em solid #f4ebd5;
+    border-radius: 5.5%/4.1%;
+    outline: 0.2em solid var(--bi-gruen);
+    outline-offset: -0.95em;
+    background:
+      repeating-conic-gradient(from -7.5deg at 50% 40%, rgb(16 63 50 / 0.07) 0 7.5deg, transparent 7.5deg 15deg),
+      var(--bi-gelb);
+    box-shadow: 0 1.5rem 3.5rem rgb(11 37 28 / 0.6);
+    color: var(--bi-gruen);
+    /* Alle Masse der Karte hängen an ihrer Höhe. */
+    font-size: calc(var(--karte-h) * 0.034);
+    text-align: center;
+    will-change: transform;
+  }
+  .z-band {
+    padding: 0.25em 1.3em 0.35em;
+    border: 0.12em solid var(--bi-gruen);
+    border-radius: 999px;
+    background: #f4ebd5;
+    font-family: var(--bi-font-titel);
+    font-weight: 700;
+    font-size: 1.35em;
+    letter-spacing: 0.01em;
+  }
+  .z-marke {
+    font-size: 0.72em;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+  }
+  .z-marke span {
+    margin-left: 0.8em;
+    padding: 0.15em 0.6em;
+    border-radius: 999px;
+    background: var(--bi-gruen);
+    color: #f4ebd5;
+  }
+  .z-zeichen {
+    font-family: var(--bi-font-titel);
+    font-weight: 600;
+    font-size: 7em;
+    line-height: 0.6;
+    color: var(--bi-spiel);
+  }
+  .z-satz {
+    font-family: var(--bi-font-titel);
+    font-weight: 700;
+    font-size: 2.9em;
+    line-height: 0.95;
+    letter-spacing: -0.04em;
+  }
+  .z-satz em {
+    display: block;
+    font-family: var(--bi-font-kursiv);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+  .z-fuss {
+    padding: 0.35em 1.2em 0.45em;
+    border-radius: 0.5em;
+    background: var(--bi-gruen);
+    color: #f4ebd5;
+    font-family: var(--bi-font-kursiv);
+    font-style: italic;
+    font-size: 1.15em;
+  }
+
   .gelegt .leiste {
     position: absolute;
     inset: auto var(--rand) max(1.25rem, env(safe-area-inset-bottom));
@@ -175,6 +259,28 @@
     .gelegt .wink {
       display: none;
     }
+  }
+
+  /* Das Zeichen neigt sich dem Zeiger zu und fliegt bei einem Klick kurz auf. */
+  .kopf-marke {
+    cursor: pointer;
+  }
+  .kopf-marke .zeichen {
+    translate: var(--blick-x, 0) var(--blick-y, 0);
+    rotate: var(--blick-dreh, 0deg);
+    transition:
+      translate 500ms var(--kurve),
+      rotate 500ms var(--kurve);
+  }
+  .kopf-marke .zeichen.flattert {
+    animation: auffliegen 700ms var(--kurve);
+  }
+  @keyframes auffliegen {
+    0% { transform: none; }
+    25% { transform: translateY(-14%) rotate(-7deg) scale(1.08); }
+    50% { transform: translateY(-4%) rotate(5deg) scale(1.03); }
+    75% { transform: translateY(-9%) rotate(-3deg) scale(1.05); }
+    100% { transform: none; }
   }
 
   body:has(.deck) .fuss {

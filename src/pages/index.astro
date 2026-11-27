@@ -29,6 +29,14 @@ const anzahl = String(karten.length).padStart(2, '0');
           ))
         }
       </ol>
+      <!-- Die Zugabe liegt nicht im Deck. Sie kommt erst, wenn jemand am Ende weiterscrollt. -->
+      <div class="zugabe" lang="en" hidden>
+        <p class="z-band">{studio.name}</p>
+        <p class="z-marke">Bonus <span>B-01</span></p>
+        <p class="z-zeichen" aria-hidden="true">∞</p>
+        <p class="z-satz">Curiosity <em>rewarded</em></p>
+        <p class="z-fuss">You kept going.</p>
+      </div>
       <div class="leiste">
         <h1 id="deck-titel"><span>{studio.name}</span> <span lang="en">The Curiosity Deck</span></h1>
         <p class="wink" aria-hidden="true">Scrollen</p>

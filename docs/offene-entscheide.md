@@ -18,6 +18,8 @@ Was vor dem Livegang entschieden oder geliefert sein muss. Erledigtes wandert na
 8a. **Weitere Statement-Karten** im Format von Deck 2.0, falls das Deck wachsen soll (bisher drei).
 8b. **Adressen für a—real und «Bewerbung neu gedacht»,** sobald es sie gibt.
 
+8c. **Zugabe als gezeichnete Karte** im Format von Deck 2.0. Bis dahin ist sie in Schrift gesetzt.
+
 ## Recht und Betrieb
 
 8. **Adresse und Mail** in `inhalt/studio.json`. Ohne sie bricht der Bau für die richtige Adresse ab. Die Mail liegt mit Vorteil auf der eigenen Domain.
