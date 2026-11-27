@@ -41,7 +41,6 @@ if (deck) {
   // Mischen: welche Karte auf welchem Platz liegt, vorher und nachher.
   let ordnung = karten.map((_, i) => i);
   let vorher = ordnung.slice();
-  let drall = karten.map(() => 0);
   let wirbel = 1;
   let wirbelBeginn = 0;
 
@@ -116,8 +115,8 @@ if (deck) {
       const platz = {
         x: mische(a.x, b.x, w),
         y: mische(a.y, b.y, w) - bogen * hoehe * 0.05,
-        dreh: mische(a.dreh, b.dreh, w) + drall[i] * w,
-        mass: mische(a.mass, b.mass, w) * (1 + bogen * 0.14),
+        dreh: mische(a.dreh, b.dreh, w),
+        mass: mische(a.mass, b.mass, w) * (1 + bogen * 0.08),
       };
       // 0 bis 1: Flug in die Mitte. 1 bis 2: Weg an den Platz. Die erste Karte liegt schon in der Mitte.
       const t = Math.min(2, Math.max(0, jetzt - i + 1));
@@ -158,7 +157,7 @@ if (deck) {
       weiter = true;
     }
     if (wirbel < 1) {
-      wirbel = Math.min(1, (zeit - wirbelBeginn) / 1100);
+      wirbel = Math.min(1, (zeit - wirbelBeginn) / 900);
       weiter = true;
     }
     if (zugabeDa && zugabeStand < 1) {
@@ -178,7 +177,7 @@ if (deck) {
     laufe();
   }
 
-  // Mischen: Alle Karten wirbeln einmal auf und landen auf neuen Plätzen.
+  // Mischen: Alle Karten heben kurz ab und gleiten im Bogen auf neue Plätze. Gedreht wird dabei nicht.
   function mischeDeck() {
     if (wirbel < 1) return;
     vorher = ordnung.slice();
@@ -189,12 +188,10 @@ if (deck) {
       }
     } while (anzahl > 2 && ordnung.every((platz, i) => platz === vorher[i]));
     if (ruhig.matches) {
-      drall = karten.map(() => 0);
       wirbel = 1;
       zeichne();
       return;
     }
-    drall = karten.map(() => (Math.random() < 0.5 ? -360 : 360));
     wirbel = 0;
     wirbelBeginn = performance.now();
     laufe();
