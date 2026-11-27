@@ -24,7 +24,7 @@
   }
   .karte img {
     width: 100%;
-    border-radius: 6%/4.2%;
+    border-radius: 5.5%/4.1%;
     box-shadow: 0 0.5rem 1.5rem rgb(11 37 28 / 0.45);
     user-select: none;
     -webkit-user-drag: none;

@@ -10,7 +10,7 @@ if (deck) {
   const stand = deck.querySelector('[data-stand]');
   const ruhig = matchMedia('(prefers-reduced-motion: reduce)');
   const anzahl = karten.length;
-  const FORMAT = 341 / 493;
+  const FORMAT = 1086 / 1448;
   // So viel Scrollweg, gemessen in Schirmhöhen, braucht eine Karte.
   const WEG = 0.7;
 
@@ -31,7 +31,7 @@ if (deck) {
     breite = tisch.clientWidth;
     hoehe = tisch.clientHeight;
     // Die Karte in der Mitte: so gross wie der Schirm es zulässt.
-    const gross = Math.min(hoehe * 0.72, (breite * 0.8) / FORMAT, 640);
+    const gross = Math.min(hoehe * 0.76, (breite * 0.82) / FORMAT, 780);
     deck.style.setProperty('--karte-h', `${gross}px`);
     deck.style.height = `${hoehe * (1 + anzahl * WEG)}px`;
 

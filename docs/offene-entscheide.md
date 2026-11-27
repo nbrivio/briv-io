@@ -15,7 +15,7 @@ Was vor dem Livegang entschieden oder geliefert sein muss. Erledigtes wandert na
 6. **Zeichen als gezeichnete Fassung (SVG) mit freiem Grund,** samt der Raute über dem i. Dann wandert es in den Kopf, ins Favicon und auf helle Flächen.
 7. **Kapitelbilder in voller Grösse,** quer für grosse Schirme, hoch für Handys. Für Sie&Er Dessous, Apérozauber, a—real und Versed Academy fehlt das Motiv ganz.
 
-8a. **Karten in voller Auflösung,** mindestens 840 Pixel breit, alle im selben Format. Dann auch die Bonuskarten aufnehmen.
+8a. **Weitere Statement-Karten** im Format von Deck 2.0, falls das Deck wachsen soll (bisher drei).
 8b. **Karten und Projekte verbinden:** Soll eine Projektkarte antippbar sein und zum Projekt führen?
 
 ## Recht und Betrieb

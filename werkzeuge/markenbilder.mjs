@@ -14,11 +14,11 @@ const GOLD = '#ffb319';
 
 // Vorschaubild 1200 auf 630: die Titelkarte auf dem grünen Tisch, daneben zwei Karten des Decks.
 {
-  const karte = (datei, hoehe) => sharp(`src/assets/bilder/karten/${datei}.png`).resize({ height: hoehe }).toBuffer();
+  const karte = (datei, hoehe) => sharp(`src/assets/bilder/karten/${datei}.webp`).resize({ height: hoehe }).toBuffer();
   const dreh = async (bild, grad) => sharp(bild).rotate(grad, { background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer();
-  const mitte = await karte('00-the-infinite-deck', 540);
+  const mitte = await karte('00-master-card', 540);
   const links = await dreh(await karte('P01-ryse', 400), -9);
-  const rechts = await dreh(await karte('S04-make-things', 400), 8);
+  const rechts = await dreh(await karte('S03-never-stop-playing', 400), 8);
   await sharp({ create: { width: 1200, height: 630, channels: 3, background: '#103f32' } })
     .composite([
       { input: links, top: 110, left: 170 },

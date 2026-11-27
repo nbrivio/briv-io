@@ -17,13 +17,13 @@ const anzahl = String(karten.length).padStart(2, '0');
         {
           karten.map((k, i) => (
             <li class="karte">
-              <Image src={k.bild} alt={`${k.art === 'Satz' ? 'Karte' : `${k.art}karte`}: ${k.text}`} widths={[...new Set([320, 520, 760].map((b) => Math.min(b, k.bild.width)))]} sizes="(max-width: 700px) 60vw, 380px" quality={70} loading={i < 2 ? 'eager' : 'lazy'} fetchpriority={i === 0 ? 'high' : 'low'} decoding="async" />
+              <Image src={k.bild} alt={`${k.art === 'Satz' ? 'Karte' : `${k.art}karte`}: ${k.text}`} widths={[...new Set([320, 480, 720, 1086].map((b) => Math.min(b, k.bild.width)))]} sizes="(max-width: 700px) 62vw, 460px" quality={68} loading={i < 2 ? 'eager' : 'lazy'} fetchpriority={i === 0 ? 'high' : 'low'} decoding="async" />
             </li>
           ))
         }
       </ol>
       <div class="leiste">
-        <h1 id="deck-titel"><span>{studio.name}</span> <span lang="en">The Infinite Deck</span></h1>
+        <h1 id="deck-titel"><span>{studio.name}</span> <span lang="en">The Curiosity Deck</span></h1>
         <p class="wink" aria-hidden="true">Scrollen</p>
         <p class="stand" aria-hidden="true"><span data-stand>01</span> / {anzahl}</p>
       </div>
