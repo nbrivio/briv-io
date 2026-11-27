@@ -9,7 +9,7 @@ import { studio, anschrift } from '../inhalt/studio.js';
 import { istLive } from '../inhalt/stufe.js';
 import { pfad } from '../inhalt/pfad.js';
 
-const { titel, beschreibung, start = false, intern = false, daten = [], pfad: brotkrumen = [] } = Astro.props;
+const { titel, beschreibung, start = false, intern = false, daten = [], pfad: brotkrumen = [], farbe = '#191f1b' } = Astro.props;
 
 if (beschreibung.length > 160) {
   throw new Error(`Beschreibung zu lang (${beschreibung.length} Zeichen): ${Astro.url.pathname}`);
@@ -95,7 +95,7 @@ const graph = {
     <meta name="description" content={beschreibung} />
     <meta name="robots" content={finden ? 'index, follow' : 'noindex, nofollow'} />
     <link rel="canonical" href={adresse} />
-    <meta name="theme-color" content="#191f1b" />
+    <meta name="theme-color" content={farbe} />
     <meta name="format-detection" content="telephone=no" />
     <link rel="icon" href={pfad('/favicon.png')} type="image/png" sizes="96x96" />
     <link rel="apple-touch-icon" href={pfad('/apple-touch-icon.png')} />
@@ -110,7 +110,7 @@ const graph = {
     <meta property="og:image" content={vorschau} />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
-    <meta property="og:image:alt" content={`${studio.name}: die Wortmarke auf einem goldenen Band, getragen von zwei Schwalben, darunter «${studio.claim}»`} />
+    <meta property="og:image:alt" content={`Titelkarte von ${studio.name}: «The Infinite Deck», darunter «${studio.claim}»`} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={seitentitel} />
     <meta name="twitter:description" content={beschreibung} />
@@ -128,5 +128,5 @@ const graph = {
 </html>
 
 <script>
-  import '../skripte/ausstellung.js';
+  import '../skripte/deck.js';
 </script>

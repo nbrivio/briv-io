@@ -1,0 +1,143 @@
+/* Das Deck: ein Tisch über den ganzen Schirm. Mit jedem Stück Scrollen kommt eine Karte dazu. */
+/* Die Reihenfolge der Ebenen steht in jeder Datei, damit sie nicht von der Ladefolge abhängt. */
+@layer schriften, grund, bausteine;
+
+@layer bausteine {
+  html:has(.deck),
+  body:has(.deck) {
+    background: var(--bi-gruen);
+  }
+
+  .deck {
+    /* Feste Farben: Der Tisch ist in jedem Farbschema grün. */
+    color: #f4ebd5;
+  }
+
+  /* Ohne Skript liegen alle Karten als ruhiges Raster da. */
+  .tisch {
+    padding: calc(var(--kopf-h) + var(--a3)) var(--rand) var(--a5);
+  }
+  .stapel {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(9.5rem, 42vw), 1fr));
+    gap: clamp(0.75rem, 2.5vw, 1.75rem);
+  }
+  .karte img {
+    width: 100%;
+    border-radius: 6%/4.2%;
+    box-shadow: 0 0.5rem 1.5rem rgb(11 37 28 / 0.45);
+    user-select: none;
+    -webkit-user-drag: none;
+  }
+
+  .leiste {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--a3);
+    margin-top: var(--a4);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .leiste h1 {
+    font: inherit;
+    letter-spacing: inherit;
+  }
+  .leiste h1 span:first-child {
+    text-transform: none;
+    letter-spacing: 0.02em;
+  }
+  .leiste h1 span:first-child::after {
+    content: '·';
+    margin-inline: 0.6em;
+    color: var(--bi-gelb);
+  }
+  .wink,
+  .stand {
+    display: none;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* Mit Skript wird der Tisch zur Bühne: Er bleibt stehen, die Bahn darunter gibt den Takt. */
+  .gelegt .deck {
+    /* Die Höhe der Bahn setzt das Skript aus der Zahl der Karten. */
+    position: relative;
+  }
+  .gelegt .tisch {
+    position: sticky;
+    top: 0;
+    height: 100svh;
+    padding: 0;
+    overflow: clip;
+    background:
+      radial-gradient(ellipse at 50% 42%, rgb(255 179 25 / 0.1), transparent 55%),
+      radial-gradient(ellipse at 50% 50%, transparent 55%, rgb(11 37 28 / 0.55)),
+      var(--bi-gruen);
+  }
+  .gelegt .stapel {
+    display: block;
+    position: absolute;
+    inset: 0;
+  }
+  .gelegt .karte {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    height: var(--karte-h, 60svh);
+    will-change: transform;
+    backface-visibility: hidden;
+  }
+  .gelegt .karte img {
+    width: auto;
+    max-width: none;
+    height: 100%;
+    box-shadow: 0 1.5rem 3.5rem rgb(11 37 28 / 0.55);
+  }
+  .gelegt .leiste {
+    position: absolute;
+    inset: auto var(--rand) max(1.25rem, env(safe-area-inset-bottom));
+    z-index: 100;
+    margin: 0;
+    pointer-events: none;
+  }
+  .gelegt .stand {
+    display: block;
+  }
+  .gelegt .wink {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    transition: opacity 400ms var(--kurve);
+  }
+  .gelegt .wink::after {
+    content: '';
+    width: 2.5rem;
+    height: 1px;
+    background: var(--bi-gelb);
+  }
+  .gelegt .unterwegs .wink {
+    opacity: 0;
+  }
+  @media (max-width: 560px) {
+    .gelegt .wink {
+      display: none;
+    }
+  }
+
+  /* Der Kopf liegt über dem Tisch und nimmt dessen Farben an. */
+  .kopf.fest {
+    color: #f4ebd5;
+  }
+  .kopf.fest .marke .band {
+    background: var(--bi-gelb);
+  }
+  body:has(.deck) .fuss {
+    border-top-color: rgb(244 235 213 / 0.18);
+    color: #f4ebd5;
+  }
+  body:has(.deck) .fuss .anbieter {
+    color: #f4ebd5;
+  }
+}

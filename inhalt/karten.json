@@ -1,0 +1,20 @@
+{
+  "karten": [
+    { "datei": "00-the-infinite-deck", "art": "Titel", "text": "briv—io. The Infinite Deck. Built from curiosity." },
+    { "datei": "P01-ryse", "art": "Projekt", "text": "ryse. Less paperwork. More real work." },
+    { "datei": "P02-mietblick", "art": "Projekt", "text": "mietblick. Know what you sign." },
+    { "datei": "P03-gwunderfink", "art": "Projekt", "text": "gwunderfink. Adventure is closer than you think." },
+    { "datei": "P04-sieunder", "art": "Projekt", "text": "sieunder. Confidence starts underneath." },
+    { "datei": "P05-aperozauber", "art": "Projekt", "text": "Apérozauber. The good stuff happens together." },
+    { "datei": "P06-a-real", "art": "Projekt", "text": "a—real. What if we looked at things differently?" },
+    { "datei": "P07-bewerbung-neu-gedacht", "art": "Projekt", "text": "Bewerbung. More than a piece of paper." },
+    { "datei": "S01-be-curious-not-judgmental", "art": "Satz", "text": "Be curious, not judgmental." },
+    { "datei": "S02-play-the-infinite-game", "art": "Satz", "text": "Play the infinite game." },
+    { "datei": "S03-good-questions-first", "art": "Satz", "text": "Good questions first." },
+    { "datei": "S04-make-things", "art": "Satz", "text": "Make things." },
+    { "datei": "S05-stay-a-beginner", "art": "Satz", "text": "Stay a beginner." },
+    { "datei": "S06-leave-room-for-the-unexpected", "art": "Satz", "text": "Leave room for the unexpected." },
+    { "datei": "S07-the-game-is-never-over", "art": "Satz", "text": "The game is never over." },
+    { "datei": "S08-follow-your-curiosity", "art": "Satz", "text": "Follow your curiosity." }
+  ]
+}

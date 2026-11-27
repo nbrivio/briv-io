@@ -229,8 +229,7 @@
 
   @media (hover: hover) {
     .kopf a:hover,
-    .fuss a:hover,
-    .kapitel .weiter:hover {
+    .fuss a:hover {
       color: var(--bi-gold);
     }
     .weiter:hover::after {

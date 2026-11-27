@@ -1,6 +1,6 @@
 // Durchlauf im echten Browser: jede Seite auf fünf Breiten, ohne Überlauf, ohne Fehler in der Konsole
 // (dort melden sich auch Verstösse gegen die Content Security Policy), dazu die Prüfung nach WCAG 2.2 AA
-// und ein Tastaturdurchlauf mit sichtbarem Fokus. Dann die Ausstellung selbst und jede Seite ohne JavaScript.
+// und ein Tastaturdurchlauf mit sichtbarem Fokus. Dann das Deck selbst und jede Seite ohne JavaScript.
 import { relative } from 'node:path';
 import { chromium } from 'playwright-core';
 import { AxeBuilder } from '@axe-core/playwright';
@@ -103,22 +103,27 @@ for (const seite of seiten) {
   }
 }
 
-// Ausstellung: Jedes Kapitel füllt den Schirm, und die Pfeiltaste führt genau ein Kapitel weiter.
-for (const [name, width, height] of [breiten[1], breiten[3]]) {
-  const ort = `Ausstellung (${name})`;
+// Deck: Am Ende des Scrollwegs liegen alle Karten sichtbar auf dem Tisch, und nichts läuft über.
+for (const [name, width, height] of [breiten[0], breiten[1], breiten[3]]) {
+  const ort = `Deck (${name})`;
   const kontext = await browser.newContext({ viewport: { width, height }, reducedMotion: 'reduce' });
   const fenster = await kontext.newPage();
   fenster.on('pageerror', (fehler) => b.melde(ort, `Skriptfehler: ${fehler.message}`));
   await fenster.goto(`${adresse}/`, { waitUntil: 'networkidle' });
-  const zuHoch = await fenster.evaluate(() => [...document.querySelectorAll('.kapitel')].filter((k) => k.scrollHeight > innerHeight + 1).map((k) => k.id));
-  for (const id of zuHoch) b.melde(ort, `Kapitel ist höher als der Schirm: ${id}`);
-  // Solange nur das Titelblatt steht, gibt es kein zweites Kapitel.
-  if ((await fenster.locator('.kapitel').count()) > 1) {
-    await fenster.keyboard.press('ArrowDown');
-    await fenster.waitForTimeout(400);
-    const lage = await fenster.evaluate(() => Math.round(document.querySelectorAll('.kapitel')[1].getBoundingClientRect().top));
-    if (Math.abs(lage) > 2) b.melde(ort, `Pfeiltaste führt nicht zum zweiten Kapitel (Abstand ${lage} Pixel)`);
-  }
+  const amAnfang = await fenster.evaluate(() => [...document.querySelectorAll('.karte')].filter((k) => getComputedStyle(k).visibility === 'visible').length);
+  if (amAnfang !== 1) b.melde(ort, `am Anfang liegen ${amAnfang} Karten statt einer`);
+  await fenster.evaluate(() => {
+    const deck = document.querySelector('.deck');
+    scrollTo(0, deck.offsetTop + deck.offsetHeight - innerHeight);
+  });
+  await fenster.waitForTimeout(400);
+  const draussen = await fenster.evaluate(() =>
+    [...document.querySelectorAll('.karte')].filter((k) => {
+      const r = k.getBoundingClientRect();
+      return getComputedStyle(k).visibility !== 'visible' || r.left < -2 || r.top < -2 || r.right > innerWidth + 2 || r.bottom > innerHeight + 2;
+    }).length,
+  );
+  if (draussen > 0) b.melde(ort, `${draussen} Karten liegen am Ende nicht ganz auf dem Tisch`);
   await kontext.close();
 }
 

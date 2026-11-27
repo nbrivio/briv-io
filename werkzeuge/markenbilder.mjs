@@ -7,24 +7,23 @@ import sharp from 'sharp';
 
 const lade = (datei) => opentype.parse(new Uint8Array(readFileSync(new URL(`./schriften/${datei}`, import.meta.url))).buffer);
 const titel = lade('bricolage-grotesque-latin-600-normal.woff');
-const text = lade('instrument-sans-latin-500-normal.woff');
 
-const TINTE = '#191f1b';
-const PAPIER = '#f3eddf';
-const GOLD = '#ddb34e';
+const TINTE = '#103f32';
+const PAPIER = '#f4ebd5';
+const GOLD = '#ffb319';
 
-// Vorschaubild 1200 auf 630: das Zeichen auf der Wand, der Claim darunter.
-// Der dunkle Grund des Zeichens geht wie auf der Seite in der Wand auf.
+// Vorschaubild 1200 auf 630: die Titelkarte auf dem grünen Tisch, daneben zwei Karten des Decks.
 {
-  const zeichen = await sharp('src/assets/marke/briv-io-schwalben.png').resize({ height: 500 }).toBuffer();
-  const claim = 'Built from curiosity.';
-  const cBreite = text.getAdvanceWidth(claim, 30);
-  const c = text.getPath(claim, (1200 - cBreite) / 2, 585, 30);
-  const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630"><path fill="${PAPIER}" d="${c.toPathData(2)}"/></svg>`;
-  await sharp({ create: { width: 1200, height: 630, channels: 3, background: '#111512' } })
+  const karte = (datei, hoehe) => sharp(`src/assets/bilder/karten/${datei}.png`).resize({ height: hoehe }).toBuffer();
+  const dreh = async (bild, grad) => sharp(bild).rotate(grad, { background: { r: 0, g: 0, b: 0, alpha: 0 } }).png().toBuffer();
+  const mitte = await karte('00-the-infinite-deck', 540);
+  const links = await dreh(await karte('P01-ryse', 400), -9);
+  const rechts = await dreh(await karte('S04-make-things', 400), 8);
+  await sharp({ create: { width: 1200, height: 630, channels: 3, background: '#103f32' } })
     .composite([
-      { input: zeichen, top: 30, left: 225, blend: 'screen' },
-      { input: Buffer.from(svg), top: 0, left: 0 },
+      { input: links, top: 110, left: 170 },
+      { input: rechts, top: 105, left: 720 },
+      { input: mitte, top: 45, left: 398 },
     ])
     .jpeg({ quality: 86, mozjpeg: true })
     .toFile('public/vorschau.jpg');

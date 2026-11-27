@@ -18,6 +18,14 @@
   --bi-nebel: #c4c0b3;
   --bi-schiefer: #4a514b; /* leise Angaben auf Papier */
 
+  /* Das Deck, Palette «Golden Hour». */
+  --bi-gruen: #103f32;
+  --bi-creme: #f4ebd5;
+  --bi-gelb: #ffb319;
+  --bi-schwalbe: #194977;
+  --bi-spiel: #e74c32;
+  --bi-umriss: #0b251c;
+
   --bi-linie: rgb(243 237 223 / 0.16);
   --bi-linie-blatt: rgb(25 31 27 / 0.18);
 
